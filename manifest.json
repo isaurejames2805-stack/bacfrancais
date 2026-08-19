@@ -1,0 +1,21 @@
+{
+  "name": "Bac Français — Mes 4 œuvres",
+  "short_name": "Bac Français",
+  "description": "Révisions du bac de français : les 4 œuvres, fiches essentielles et méthode.",
+  "lang": "fr",
+  "dir": "ltr",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "./index.html",
+  "scope": "./",
+  "background_color": "#FBFAF7",
+  "theme_color": "#FBFAF7",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
