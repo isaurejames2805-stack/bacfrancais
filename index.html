@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Bac Français">
-<meta name="theme-color" content="#FBFAF7">
+<meta name="theme-color" content="#F4F5F8">
 <title>Bac Français — Mes 4 œuvres</title>
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="icon" href="icon.png">
@@ -16,9 +16,9 @@
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; padding: 0; }
   body {
-    background: #FBFAF7;
+    background: #F4F5F8;
     font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-    color: #1E2233;
+    color: #141824;
     -webkit-text-size-adjust: 100%;
   }
   #app {
@@ -41,16 +41,16 @@
 <script>
 "use strict";
 
-/* ═══════════════ PALETTE ═══════════════ */
+/* ═══════════════ PALETTE (vive et franche) ═══════════════ */
 var C = {
-  bleu: "#2F7BFF", vert: "#16C172", jaune: "#FFC53D", fuchsia: "#E8438E",
-  rouge: "#F0453A", violet: "#8B5CF6", turquoise: "#20C9C9", orange: "#FF8A3D",
-  ink: "#1E2233", paper: "#FBFAF7"
+  bleu: "#2F6BFF", vert: "#12B886", jaune: "#F5B800", fuchsia: "#EC3F87",
+  rouge: "#F0453A", violet: "#7A5CF5", turquoise: "#12BDC9", orange: "#FF8A2F",
+  ink: "#141824", paper: "#F4F5F8"
 };
 function tint(hex, a) { return hex + (a || "1A"); }
 function shade(hex) {
   var n = parseInt(hex.slice(1), 16);
-  var r = Math.max(0, (n >> 16) - 42), g = Math.max(0, ((n >> 8) & 255) - 42), b = Math.max(0, (n & 255) - 42);
+  var r = Math.max(0, (n >> 16) - 55), g = Math.max(0, ((n >> 8) & 255) - 55), b = Math.max(0, (n & 255) - 55);
   return "rgb(" + r + "," + g + "," + b + ")";
 }
 function onColor(hex) { return hex === C.jaune ? "#4A3200" : "#fff"; }
@@ -60,7 +60,7 @@ var OEUVRES = [
   /* ─────────── 1. RIMBAUD ─────────── */
   {
     id: "douai", titre: "Les Cahiers de Douai", auteur: "Arthur Rimbaud",
-    petit: "Recueil de 22 poèmes · 1870", couleur: C.bleu,
+    petit: "Recueil de 22 poèmes · 1870", couleur: C.jaune,
     objet: "La poésie du XIXᵉ au XXIᵉ siècle", parcours: "Émancipations créatrices",
     fiche: {
       express: "22 poèmes écrits par Rimbaud à 15–16 ans (1870) et confiés à Douai. Un adolescent révolté transforme ses fugues et sa colère en libération par la poésie.",
@@ -98,7 +98,7 @@ var OEUVRES = [
           "La critique sociale — moquerie de la bourgeoisie et de Napoléon III (À la Musique, Rages de Césars).",
           "La subversion des formes — il détourne les codes classiques (Vénus Anadyomène)."
         ]},
-        { callout: "Astuce : les 8 poèmes marqués ⭐ dans l'onglet « Les 22 poèmes » sont les plus utiles à préparer en priorité." }
+        { callout: "Astuce : les 8 poèmes marqués ⭐ dans « Les 22 poèmes » sont les plus utiles à préparer en priorité." }
       ]},
       { id: "analyse", label: "Analyse de l'œuvre", couleur: C.violet, blocks: [
         { sub: "Le projet", text: "À 16 ans, Rimbaud écrit un premier ensemble qui est déjà une déclaration d'indépendance. Ce n'est pas un recueil vraiment prévu (des poèmes confiés à Demeny), mais lus ensemble, ils dessinent une trajectoire : partir d'une poésie apprise à l'école pour aller vers une voix personnelle." },
@@ -278,7 +278,7 @@ var OEUVRES = [
   /* ─────────── 3. SARRAUTE ─────────── */
   {
     id: "sarraute", titre: "Pour un oui ou pour un non", auteur: "Nathalie Sarraute",
-    petit: "Théâtre · 1982", couleur: C.violet,
+    petit: "Théâtre · 1982", couleur: C.fuchsia,
     objet: "Le théâtre du XVIIᵉ au XXIᵉ siècle", parcours: "Théâtre et dispute",
     fiche: {
       express: "Deux amis de toujours, H1 et H2, se brouillent à cause d'une phrase dite avec un certain ton condescendant (« C'est bien… ça »). À partir de ce rien, la dispute fait remonter des rapports de force cachés. L'amitié se brise « pour un oui ou pour un non ».",
@@ -379,7 +379,7 @@ var OEUVRES = [
   /* ─────────── 4. LA BOÉTIE ─────────── */
   {
     id: "laboetie", titre: "Discours de la servitude volontaire", auteur: "Étienne de La Boétie",
-    petit: "Essai · vers 1548", couleur: C.orange,
+    petit: "Essai · vers 1548", couleur: C.bleu,
     objet: "La littérature d'idées du XVIᵉ au XVIIIᵉ siècle", parcours: "Défendre et entretenir la liberté",
     fiche: {
       express: "Pourquoi des millions d'hommes obéissent-ils à un seul tyran ? Parce qu'ils y consentent. Le pouvoir tient par l'habitude, les divertissements et une pyramide de complices — pas par la force. La solution : cesser de servir.",
@@ -477,25 +477,97 @@ var OEUVRES = [
   }
 ];
 
-/* ═══════════════ MÉTHODE ═══════════════ */
+/* ═══════════════ MÉTHODE (d'après tes fiches méthodo + grammaire) ═══════════════ */
 var METHODE = [
-  { label: "La dissertation", couleur: C.bleu, blocks: [
-    { sub: "1. Analyser le sujet", text: "Souligne les mots-clés et définis-les. Repère si c'est une question fermée (réponse oui/non) ou ouverte." },
-    { sub: "2. La problématique", text: "Reformule la tension du sujet en une seule question qui guidera tout le devoir." },
-    { sub: "3. Choisir le plan", text: "Question fermée → plan dialectique (I. Oui… / II. Mais… / III. Dépassement). Question ouverte → plan par aspects. Toujours 3 parties, 2 à 3 paragraphes chacune." },
-    { sub: "4. Le paragraphe", text: "1 idée = un argument + un exemple précis de l'œuvre + une analyse. Jamais d'exemple sans analyse." },
-    { sub: "5. Intro & conclusion", text: "Intro : accroche → présentation œuvre/auteur → problématique → annonce du plan. Conclusion : bilan des parties + ouverture." }
+  /* ---------- DISSERTATION ---------- */
+  { label: "Dissertation", couleur: C.bleu, blocks: [
+    { callout: "4 h · /20 · coefficient 5. Au choix avec le commentaire. On te propose 3 sujets de dissertation (un par œuvre) : tu traites SEULEMENT celui qui porte sur l'œuvre étudiée en classe." },
+    { sub: "L'épreuve en bref", items: [
+      "Le sujet = une question ou une citation sur une œuvre au programme et son parcours.",
+      "Lis la consigne sous la question : elle dit si tu réfléchis sur l'œuvre seule, ou l'œuvre ET les textes du parcours (l'ignorer = hors-sujet classique).",
+      "Tes munitions viennent de TA mémoire : l'œuvre, les textes du parcours, ta culture perso.",
+      "À choisir si tu connais bien l'œuvre (personnages, passages, citations)."
+    ]},
+    { sub: "Gérer les 4 heures", items: [
+      "Choix du sujet : 10 min (puis on n'y revient plus).",
+      "Analyse du sujet : 20 min.",
+      "Recherche d'idées : 30 min.",
+      "Plan détaillé : 35 min.",
+      "Intro au brouillon : 15 min.",
+      "Rédaction au propre : 1 h 45.",
+      "Conclusion + relecture : 25 min."
+    ]},
+    { sub: "1. Analyser le sujet (l'étape qui décide de tout)", text: "Recopie le sujet, souligne chaque mot important (notions, verbes, mots restrictifs : « seulement », « ne… que », « suffit-il »). Définis les termes clés même évidents (« héros », « liberté »… ont plusieurs sens). Cherche les présupposés (ce que le sujet affirme sans le dire). Reformule le sujet avec tes mots : si tu n'y arrives pas, tu ne l'as pas compris." },
+    { sub: "2. La problématique", text: "Elle révèle la tension du sujet : la question derrière la question. Ni une recopie du sujet, ni si large qu'elle irait avec n'importe quelle œuvre. Test : chaque partie doit y répondre en partie, la conclusion entièrement." },
+    { sub: "3. Trouver les idées et exemples", text: "Vide ta mémoire au brouillon : l'œuvre entière (personnages, scènes clés, dénouement, citations), le parcours et son intitulé, ta culture perso. Tableau à 2 colonnes : à gauche ce qui va dans le sens du sujet, à droite ce qui le nuance. Chaque argument accroché à au moins un exemple précis." },
+    { passage: "Les 3 types de plan", text: "• Dialectique (le + fréquent, pour question fermée / citation à discuter) : I. Thèse (oui) → II. Antithèse (mais) → III. Dépassement (au fond, la vraie question est ailleurs). Le III n'est PAS « un peu des deux » : il déplace le problème.\n• Thématique (question ouverte) : I, II, III = trois réponses complémentaires, du plus évident au plus profond.\n• Analytique : I. Constat → II. Causes/mécanismes → III. Portée." },
+    { sub: "Règles d'or du plan", items: [
+      "Chaque partie = 2-3 sous-parties ; chaque sous-partie = 1 paragraphe = 1 argument + 1-2 exemples analysés.",
+      "L'œuvre au programme doit apparaître dans TOUTES les parties.",
+      "Équilibre les parties (jamais une partie de 5 lignes face à une de 2 pages).",
+      "Le type de plan découle du sujet, jamais d'une habitude."
+    ]},
+    { sub: "4. L'introduction (≈ 10 lignes, au brouillon)", text: "1) Amorce en lien réel avec le sujet (bannir « De tout temps… »). 2) Sujet cité intégralement + définition des termes. 3) Problématique. 4) Annonce du plan (grandes parties seulement, formules fluides)." },
+    { sub: "5. Le paragraphe argumentatif", text: "1) L'idée en une phrase claire. 2) L'explication. 3) L'exemple précis présenté ET analysé (jamais juste raconté). 4) Mini-conclusion qui raccroche au sujet. Connecteurs partout (en effet, ainsi, pourtant, dès lors…)." },
+    { sub: "6. La conclusion", text: "Bilan net qui répond à la problématique en montrant le chemin parcouru, puis ouverture pertinente (autre œuvre, époque, art) — sans proverbe ni formule creuse. Garde 15 min pour la soigner." },
+    { note: "Erreurs qui coûtent cher : le hors-sujet (relis le sujet avant CHAQUE partie), raconter l'œuvre, réciter le cours, zéro exemple précis, oublier l'œuvre au programme, le « III synthèse-moyenne », la conclusion bâclée." }
   ]},
-  { label: "Le commentaire", couleur: C.vert, blocks: [
-    { sub: "Le principe", text: "On n'explique pas le texte ligne à ligne : on construit 2–3 axes de lecture qui répondent à une problématique." },
-    { sub: "Éviter le piège", text: "Pas de paraphrase (redire le texte). On analyse : citation courte + procédé (figure, énonciation, rythme…) + effet/interprétation." },
-    { sub: "La méthode", text: "Lis plusieurs fois, repère les procédés, regroupe-les en axes, puis rédige : intro (situer le texte + problématique + plan), développement, conclusion." }
+
+  /* ---------- COMMENTAIRE ---------- */
+  { label: "Commentaire", couleur: C.vert, blocks: [
+    { callout: "4 h · /20 · coefficient 5. Le texte n'est jamais tiré des œuvres au programme (tout le monde le découvre) et relève d'un autre genre que ta dissertation. Aucune connaissance extérieure exigée : tout est dans le texte." },
+    { sub: "Le but", text: "Montrer comment le texte produit du sens et des effets grâce aux procédés d'écriture. À l'écrit, c'est le commentaire COMPOSÉ (organisé en axes) qui est attendu — le linéaire, c'est l'oral. Sers-toi du linéaire au brouillon pour repérer les mouvements, puis recompose en axes." },
+    { sub: "Gérer les 4 heures", items: [
+      "Choix du sujet : 10 min.",
+      "Lectures + analyse : 50 min (3 lectures + tableau de lecture).",
+      "Problématique + plan : 40 min.",
+      "Intro au brouillon : 15 min.",
+      "Rédaction au propre : 1 h 45.",
+      "Conclusion + relecture : 20 min."
+    ]},
+    { sub: "1. Lire et comprendre (3 lectures)", text: "Une lecture découverte, une crayon en main, une de vérification. Le paratexte (titre, auteur, date, chapeau, notes) te situe le texte. Demande-toi : quel genre ? qui parle, à qui ? de quoi ça parle (mouvement du texte) ? quelle tonalité ? quel est l'intérêt singulier de CE texte ? (= le cœur de ta problématique)." },
+    { passage: "2. Le tableau de lecture (l'anti-paraphrase)", text: "Au brouillon, 3 colonnes : JE RELÈVE (citation) · JE NOMME (le procédé) · J'INTERPRÈTE (l'effet / le sens). Vise 12 à 20 remarques, puis surligne par couleurs : chaque couleur deviendra une partie ou sous-partie." },
+    { sub: "3. La problématique", text: "Elle porte à la fois sur le SENS du texte et sur les MOYENS de l'auteur, et couvre tout le texte. Types : « Comment ce texte… ? », « En quoi cet extrait… ? », « Par quels moyens l'auteur… ? ». Évite les questions fermées et les questions vagues (« Quel est l'intérêt du texte ? »)." },
+    { sub: "4. Le plan", text: "2 ou 3 axes (2 solides suffisent), chacun en 2-3 sous-parties. Progression du plus évident au plus subtil (le III = la lecture la plus fine : symbolique, portée, visée). Chaque axe = une idée interprétative formulée en phrase (« I. Un paysage transfiguré par le regard amoureux », pas « I. La nature »)." },
+    { note: "Le plan fond/forme (I. les idées, II. le style) est LE plan interdit : il sépare ce qui doit être analysé ensemble." },
+    { sub: "5. L'introduction", text: "1) Amorce en lien direct avec le texte (genre, mouvement, thème). 2) Présentation : auteur, œuvre, date, situation de l'extrait. 3) Problématique. 4) Annonce du plan." },
+    { sub: "6. Le développement", text: "Paragraphe type = idée directrice + 2-3 analyses complètes + phrase bilan. Transitions rédigées entre les parties. Plan jamais apparent (pas de « I. A. », la structure se voit par la mise en page). Présent de l'indicatif, pas de « je », pas de jugement de goût." },
+    { sub: "7. La conclusion", text: "Bilan qui répond à la problématique + ouverture pertinente (autre texte du même auteur, même thème, autre art)." },
+    { callout: "LA règle d'or : ne jamais séparer le fond et la forme. La formule de chaque analyse = PROCÉDÉ + CITATION + EFFET/SENS. Un procédé cité sans interprétation ne vaut rien." },
+    { note: "À bannir : « l'auteur veut nous dire », « on ressent que », « ce texte est très beau », « il y a une métaphore ». Ces formules = une copie qui paraphrase." }
   ]},
-  { label: "L'oral", couleur: C.orange, blocks: [
-    { sub: "Le déroulé (20 min)", text: "Lecture expressive du texte, puis explication linéaire (on suit le texte, mouvement par mouvement), puis une question de grammaire, enfin l'entretien sur l'œuvre que tu as choisie." },
-    { sub: "L'explication linéaire", text: "Avance dans l'ordre du texte : pour chaque passage, un procédé → un effet. Termine par une petite conclusion." },
-    { sub: "L'entretien", text: "Présente l'œuvre choisie, dis pourquoi elle t'a marquée, défends un avis personnel. Rattache toujours au parcours." },
-    { sub: "Conseils", text: "Prépare une vingtaine de textes, aie un avis argumenté sur chaque œuvre, et connais bien le parcours associé." }
+
+  /* ---------- ORAL ---------- */
+  { label: "Oral", couleur: C.orange, blocks: [
+    { callout: "L'oral compte coefficient 5. Préparation : 30 min. Passage : 20 min = lecture + explication linéaire + question de grammaire (2 pts) + entretien." },
+    { sub: "Le déroulé", text: "1) Lecture expressive du texte choisi par l'examinateur. 2) Explication linéaire (~ 8 min). 3) Une question de grammaire (voir la partie Grammaire). 4) Entretien (~ 8 min) sur l'œuvre que TU as choisie de présenter." },
+    { sub: "L'explication linéaire", text: "On suit le texte dans l'ordre, mouvement par mouvement : pour chaque passage, un procédé → un effet. Ce n'est pas une chasse au sens caché : c'est ta lecture, prouvée par le texte. Termine par une petite conclusion qui répond à ta problématique." },
+    { sub: "L'entretien", text: "Présente l'œuvre choisie, dis pourquoi elle t'a marquée, défends un AVIS personnel argumenté. Rattache toujours au parcours. Aie une lecture personnelle prête (ce que tu as aimé / moins aimé, et pourquoi)." },
+    { sub: "Conseils", items: [
+      "Prépare bien tes textes de la liste (ceux vus en classe) et connais chaque parcours.",
+      "Aie un avis argumenté sur chaque œuvre : les examinateurs valorisent la pensée personnelle.",
+      "Entraîne-toi à lire à voix haute, sans te précipiter.",
+      "Prépare la question de grammaire dès la préparation : tu la reçois d'emblée."
+    ]}
+  ]},
+
+  /* ---------- GRAMMAIRE ---------- */
+  { label: "Grammaire", couleur: C.violet, blocks: [
+    { callout: "La question de grammaire vaut 2 points. L'examinateur prend une courte phrase du texte et demande de l'analyser (parfois de la transformer). Tu la prépares pendant les 30 min de préparation." },
+    { sub: "La méthode en 3 temps", items: [
+      "J'IDENTIFIE : de quoi il s'agit (négation ? interrogation ? relative ?).",
+      "JE NOMME précisément : le type exact + les mots qui le marquent.",
+      "JE PROUVE et J'EXPLIQUE : une petite manipulation (remplacer, supprimer, déplacer, transformer) + l'effet dans le texte. C'est ce dernier point qui rapporte le 2ᵉ point."
+    ]},
+    { note: "Priorité de révision : les 3 notions de Première tombent le plus souvent → négation, interrogation, subordonnées circonstancielles. Termine TOUJOURS par l'effet dans le texte : une identification seule plafonne à 1 point." },
+    { passage: "① La négation", text: "3 types : TOTALE (ne…pas/point/nullement — on nie toute la phrase) · PARTIELLE (ne…plus/jamais/rien/personne/aucun/guère — on nie une partie : temps, lieu, quantité…) · RESTRICTIVE (ne…que = « seulement », ce n'est pas une vraie négation). Pièges : le « ne » explétif (après craindre que, avant que, à moins que) n'est PAS une négation ; négation lexicale possible (in-, im-, dé-, « refuser »)." },
+    { passage: "② L'interrogation (2 questions)", text: "A) Directe (avec « ? », souvent inversion) ou Indirecte (pas de « ? », cachée après demander/savoir/se demander). B) Totale (réponse oui/non) ou Partielle (mot interrogatif : qui, que, où, quand, comment, pourquoi, quel). Transformer directe → indirecte : j'enlève le « ? » et l'inversion, j'ajoute une principale (« elle demande… »), je relie par « si » (totale) ou je garde le mot interrogatif (« que » → « ce que »)." },
+    { passage: "③ Les subordonnées circonstancielles", text: "Conjonctives, fonction = complément circonstanciel. Test : on peut les supprimer et les déplacer. Les 7 : temps (quand, lorsque), cause (parce que, puisque, comme), conséquence (si bien que, au point que), but (pour que, afin que — subjonctif), condition (si, à condition que), concession (bien que, quoique — subjonctif), comparaison (comme, de même que)." },
+    { passage: "④ La phrase complexe", text: "Plusieurs verbes conjugués = plusieurs propositions. Juxtaposition (ponctuation : , ; :) · Coordination (mais, ou, et, donc, or, ni, car) · Subordination (conjonction, pronom relatif, mot interrogatif). Transformation type : rendre explicite un lien juxtaposé → « Il pleut, je reste » devient « Puisqu'il pleut, je reste » (cause)." },
+    { passage: "⑤ Les subordonnées relatives", text: "Donnent une info sur un nom, introduites par qui/que/dont/où. À dire : l'ANTÉCÉDENT (le nom juste avant) + le pronom relatif et sa FONCTION (qui = sujet · que = COD · dont = complément en « de » · où = CC lieu/temps) + la relative est complément de l'antécédent (expansion du nom)." },
+    { passage: "⑥ Complétive vs relative (le piège du « que »)", text: "Complétive : « que » après un verbe de parole/pensée/sentiment, PAS d'antécédent, fonction COD, ni supprimable ni déplaçable (« je crois que tu mens »). Relative : « que » a un antécédent + une fonction dans la subordonnée (« le film que j'ai vu »). Le « qui » relatif a toujours un antécédent." },
+    { sub: "Exemple traité en entier (Rimbaud)", text: "« On n'est pas sérieux, quand on a dix-sept ans. » → « Quand on a dix-sept ans » est une subordonnée conjonctive circonstancielle de temps (conjonction « quand », indicatif), complément circonstanciel du verbe « est ». Preuve : on peut la supprimer et la déplacer. Effet : rejetée en fin de vers, elle prend une valeur presque causale — l'âge devient la raison de la légèreté." },
+    { note: "Pièges : « ne…que » = restrictif (pas totale) · pas de « ? » → jamais « directe » · ne confonds pas les trois « que » ni les deux « si » (condition vs interrogative indirecte) · le « ne » explétif n'est pas une négation." }
   ]}
 ];
 
@@ -531,54 +603,59 @@ function cubeBtn(label, color, active, onClick, extra) {
   var b = el("button", {
     background: active ? color : "#fff",
     color: active ? onColor(color) : C.ink,
-    border: "2px solid " + color,
-    borderRadius: "15px",
-    padding: "9px 15px",
-    fontWeight: "600",
-    fontSize: "14px",
+    border: active ? "none" : "2.5px solid " + tint(color, "40"),
+    borderRadius: "16px",
+    padding: "11px 17px",
+    fontWeight: "800",
+    fontSize: "15px",
     cursor: "pointer",
-    boxShadow: active ? "0 4px 0 " + shade(color) : "0 3px 0 rgba(0,0,0,0.08)",
-    transition: "transform .05s",
+    boxShadow: active ? "0 5px 0 " + shade(color) : "0 4px 0 rgba(20,24,36,0.10)",
+    transition: "transform .06s, box-shadow .06s",
     whiteSpace: "nowrap"
   }, label);
   if (extra) { for (var k in extra) { if (extra.hasOwnProperty(k)) b.style[k] = extra[k]; } }
   b.addEventListener("click", onClick);
-  b.addEventListener("touchstart", function () { b.style.transform = "translateY(2px)"; }, { passive: true });
-  b.addEventListener("touchend", function () { b.style.transform = "translateY(0)"; });
-  b.addEventListener("mousedown", function () { b.style.transform = "translateY(2px)"; });
-  b.addEventListener("mouseup", function () { b.style.transform = "translateY(0)"; });
-  b.addEventListener("mouseleave", function () { b.style.transform = "translateY(0)"; });
+  function down() { b.style.transform = "translateY(3px)"; b.style.boxShadow = active ? "0 2px 0 " + shade(color) : "0 1px 0 rgba(20,24,36,0.10)"; }
+  function up() { b.style.transform = "translateY(0)"; b.style.boxShadow = active ? "0 5px 0 " + shade(color) : "0 4px 0 rgba(20,24,36,0.10)"; }
+  b.addEventListener("touchstart", down, { passive: true });
+  b.addEventListener("touchend", up);
+  b.addEventListener("mousedown", down);
+  b.addEventListener("mouseup", up);
+  b.addEventListener("mouseleave", up);
   return b;
 }
 
 function block(b, color) {
   if (b.cite) {
-    var box = el("div", { borderLeft: "4px solid " + color, background: tint(color, "12"), borderRadius: "12px", padding: "12px 15px", margin: "11px 0" });
-    box.appendChild(el("div", { fontStyle: "italic", fontWeight: "600", fontSize: "15.5px", color: C.ink }, "« " + b.cite + " »"));
-    if (b.ref) box.appendChild(el("div", { fontSize: "12.5px", opacity: "0.7", marginTop: "4px", fontWeight: "600" }, b.ref));
-    if (b.exp) box.appendChild(el("div", { fontSize: "13.8px", lineHeight: "1.5", marginTop: "7px", color: "#3a3f4f" }, b.exp));
+    var box = el("div", { borderLeft: "5px solid " + color, background: tint(color, "12"), borderRadius: "0 12px 12px 0", padding: "12px 15px", margin: "12px 0" });
+    box.appendChild(el("div", { fontStyle: "italic", fontWeight: "700", fontSize: "15.5px", color: C.ink }, "« " + b.cite + " »"));
+    if (b.ref) box.appendChild(el("div", { fontSize: "12.5px", opacity: "0.7", marginTop: "4px", fontWeight: "700" }, b.ref));
+    if (b.exp) box.appendChild(el("div", { fontSize: "13.8px", lineHeight: "1.55", marginTop: "7px", color: "#3a3f4f" }, b.exp));
     return box;
   }
   if (b.passage) {
-    var p = el("div", { background: tint(color, "10"), borderRadius: "14px", padding: "13px 16px", margin: "11px 0" });
-    p.appendChild(el("div", { fontWeight: "700", color: color, fontSize: "14.5px", marginBottom: "5px" }, b.passage));
-    p.appendChild(el("p", { margin: "0", fontSize: "14.5px", lineHeight: "1.6", color: "#2A2E3D" }, b.text));
+    var p = el("div", { borderLeft: "5px solid " + color, background: tint(color, "0E"), borderRadius: "0 12px 12px 0", padding: "13px 16px", margin: "12px 0" });
+    p.appendChild(el("div", { fontWeight: "800", color: shade(color), fontSize: "14.5px", marginBottom: "5px" }, b.passage));
+    p.appendChild(el("p", { margin: "0", fontSize: "14.7px", lineHeight: "1.62", color: "#2A2E3D", whiteSpace: "pre-line" }, b.text));
     return p;
   }
   if (b.callout) {
-    return el("div", { background: "#FFF1F4", border: "1.5px solid #F7C6D2", borderRadius: "14px", padding: "13px 16px", margin: "12px 0", fontSize: "14.5px", lineHeight: "1.55" }, b.text);
+    return el("div", { background: tint(C.jaune, "26"), borderRadius: "14px", padding: "13px 16px", margin: "13px 0", fontSize: "14.7px", lineHeight: "1.6", color: "#4A3200", fontWeight: "500" }, b.text);
   }
   if (b.note) {
-    return el("div", { background: tint(C.jaune, "22"), borderRadius: "14px", padding: "12px 16px", margin: "12px 0", fontSize: "14px", lineHeight: "1.55" }, "💡 " + b.note);
+    return el("div", { background: tint(C.turquoise, "1C"), borderLeft: "5px solid " + C.turquoise, borderRadius: "0 12px 12px 0", padding: "12px 16px", margin: "13px 0", fontSize: "14px", lineHeight: "1.6", color: "#0d5c62" }, "💡 " + b.note);
   }
-  var wrap = el("div", { margin: "11px 0" });
-  if (b.sub) wrap.appendChild(el("div", { fontWeight: "700", fontSize: "15px", color: color, marginBottom: "6px" }, b.sub));
-  if (b.text) wrap.appendChild(el("p", { margin: "0", fontSize: "14.7px", lineHeight: "1.62", color: "#2A2E3D" }, b.text));
+  var wrap = el("div", { margin: "14px 0 4px" });
+  if (b.sub) {
+    // mini-bandeau pastel façon fiche
+    wrap.appendChild(el("div", { display: "inline-block", background: tint(color, "22"), color: shade(color), fontWeight: "800", fontSize: "15px", padding: "7px 14px", borderRadius: "11px", marginBottom: "9px" }, b.sub));
+  }
+  if (b.text) wrap.appendChild(el("p", { margin: "0", fontSize: "14.7px", lineHeight: "1.65", color: "#2A2E3D" }, b.text));
   if (b.items) {
     var ul = el("ul", { margin: "6px 0 0", paddingLeft: "0", listStyle: "none" });
     b.items.forEach(function (it) {
-      var li = el("li", { position: "relative", paddingLeft: "20px", margin: "7px 0", fontSize: "14.5px", lineHeight: "1.55", color: "#2A2E3D" }, it);
-      li.appendChild(el("span", { position: "absolute", left: "0", top: "8px", width: "8px", height: "8px", borderRadius: "3px", background: color }));
+      var li = el("li", { position: "relative", paddingLeft: "22px", margin: "8px 0", fontSize: "14.5px", lineHeight: "1.55", color: "#2A2E3D" }, it);
+      li.appendChild(el("span", { position: "absolute", left: "0", top: "8px", width: "9px", height: "9px", borderRadius: "3px", background: color }));
       ul.appendChild(li);
     });
     wrap.appendChild(ul);
@@ -588,11 +665,29 @@ function block(b, color) {
 
 function card(color, extra) {
   var c = el("div", {
-    background: "#fff", borderRadius: "18px", border: "2px solid " + color,
-    boxShadow: "0 5px 0 " + tint(color, "33"), padding: "16px 18px"
+    background: "#fff", borderRadius: "22px", border: "2.5px solid " + tint(color, "33"),
+    boxShadow: "0 6px 0 " + tint(color, "26"), padding: "17px 19px"
   });
   if (extra) { for (var k in extra) { if (extra.hasOwnProperty(k)) c.style[k] = extra[k]; } }
   return c;
+}
+
+/* titre de section : bandeau pastel coloré (style fiches) */
+function sectionBanner(index, label, color) {
+  var wrap = el("div", { marginBottom: "13px" });
+  var banner = el("div", { background: tint(color, "22"), borderRadius: "16px", padding: "14px 18px", borderLeft: "7px solid " + color });
+  banner.appendChild(el("div", { fontSize: "20px", fontWeight: "800", color: shade(color), letterSpacing: "-0.2px", lineHeight: "1.15" }, label));
+  wrap.appendChild(banner);
+  return wrap;
+}
+
+/* carte blanche à grosse bordure gauche colorée */
+function leftBarCard(color) {
+  return el("div", {
+    background: "#fff", borderRadius: "18px",
+    border: "2px solid " + tint(color, "22"), borderLeft: "7px solid " + color,
+    boxShadow: "0 5px 0 " + tint(color, "1C"), padding: "4px 18px 12px"
+  });
 }
 
 function chip(text, color) {
@@ -627,29 +722,35 @@ function findO(id) { for (var i = 0; i < OEUVRES.length; i++) if (OEUVRES[i].id 
 function Home() {
   var wrap = el("div");
   var head = el("div", { textAlign: "center", padding: "6px 0 18px" });
-  head.appendChild(el("div", { display: "inline-block", background: C.ink, color: "#fff", borderRadius: "12px", padding: "5px 14px", fontSize: "12.5px", fontWeight: "700", letterSpacing: "1px", marginBottom: "12px" }, "BAC DE FRANÇAIS · ŒUVRES"));
-  head.appendChild(el("h1", { margin: "0 0 6px", fontSize: "27px", color: C.ink }, "Mes 4 œuvres"));
-  head.appendChild(el("p", { margin: "0", fontSize: "14.5px", opacity: "0.7" }, "Tape sur une œuvre pour réviser."));
+  head.appendChild(el("div", { display: "inline-block", background: C.ink, color: "#fff", borderRadius: "12px", padding: "6px 15px", fontSize: "12.5px", fontWeight: "800", letterSpacing: "1px", marginBottom: "13px" }, "BAC DE FRANÇAIS · ŒUVRES"));
+  head.appendChild(el("h1", { margin: "0", fontSize: "31px", color: C.ink, fontWeight: "800", letterSpacing: "-0.5px" }, "Mes 4 œuvres"));
   wrap.appendChild(head);
 
-  var list = el("div", { display: "flex", flexDirection: "column", gap: "14px" });
+  var list = el("div", { display: "flex", flexDirection: "column", gap: "16px" });
   OEUVRES.forEach(function (o) {
     var b = el("button", {
       textAlign: "left", cursor: "pointer", border: "none", background: "#fff",
-      borderRadius: "20px", padding: "0", overflow: "hidden",
-      boxShadow: "0 5px 0 " + tint(o.couleur, "40"), borderLeft: "8px solid " + o.couleur
+      borderRadius: "22px", padding: "0", overflow: "hidden",
+      boxShadow: "0 6px 0 " + tint(o.couleur, "3A"), borderLeft: "10px solid " + o.couleur,
+      transition: "transform .06s, box-shadow .06s"
     });
-    var pad = el("div", { padding: "16px 18px" });
+    function down() { b.style.transform = "translateY(3px)"; b.style.boxShadow = "0 3px 0 " + tint(o.couleur, "3A"); }
+    function up() { b.style.transform = "translateY(0)"; b.style.boxShadow = "0 6px 0 " + tint(o.couleur, "3A"); }
+    b.addEventListener("touchstart", down, { passive: true });
+    b.addEventListener("touchend", up);
+    b.addEventListener("mousedown", down);
+    b.addEventListener("mouseup", up);
+    b.addEventListener("mouseleave", up);
+    var pad = el("div", { padding: "17px 19px" });
     var top = el("div", { display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" });
     var tl = el("div");
-    tl.appendChild(el("h2", { margin: "0", fontSize: "18.5px", color: C.ink, lineHeight: "1.2" }, o.titre));
-    tl.appendChild(el("div", { fontSize: "14px", fontWeight: "600", color: o.couleur, marginTop: "3px" }, o.auteur));
+    tl.appendChild(el("h2", { margin: "0", fontSize: "20px", color: C.ink, lineHeight: "1.18", fontWeight: "800" }, o.titre));
+    tl.appendChild(el("div", { fontSize: "14.5px", fontWeight: "700", color: o.couleur, marginTop: "3px" }, o.auteur));
     top.appendChild(tl);
-    top.appendChild(el("span", { flex: "0 0 auto", background: tint(o.couleur, "1F"), color: shade(o.couleur), borderRadius: "20px", width: "34px", height: "34px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", fontWeight: "700" }, "›"));
+    top.appendChild(el("span", { flex: "0 0 auto", background: o.couleur, color: onColor(o.couleur), borderRadius: "50%", width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "800", boxShadow: "0 3px 0 " + shade(o.couleur) }, "›"));
     pad.appendChild(top);
-    var badges = el("div", { marginTop: "11px", display: "flex", flexWrap: "wrap", gap: "6px" });
-    badges.appendChild(el("span", { fontSize: "12px", background: "#F4F2EC", borderRadius: "8px", padding: "4px 9px", color: "#555" }, o.petit));
-    badges.appendChild(el("span", { fontSize: "12px", background: tint(o.couleur, "1A"), borderRadius: "8px", padding: "4px 9px", color: shade(o.couleur), fontWeight: "600" }, "🎯 " + o.parcours));
+    var badges = el("div", { marginTop: "12px", display: "flex", flexWrap: "wrap", gap: "6px" });
+    badges.appendChild(el("span", { fontSize: "12px", background: tint(o.couleur, "1F"), borderRadius: "9px", padding: "5px 10px", color: shade(o.couleur), fontWeight: "700" }, "🎯 " + o.parcours));
     pad.appendChild(badges);
     b.appendChild(pad);
     b.addEventListener("click", function () { go({ type: "oeuvre", id: o.id, tab: "identite" }); });
@@ -657,10 +758,10 @@ function Home() {
   });
   wrap.appendChild(list);
 
-  var btnRow = el("div", { display: "flex", gap: "12px", marginTop: "16px" });
-  var fBtn = el("button", { flex: "1", cursor: "pointer", border: "none", background: C.ink, color: "#fff", borderRadius: "16px", padding: "15px 12px", fontSize: "15px", fontWeight: "700", boxShadow: "0 4px 0 #0c0e16" }, "🗂️ Fiches");
+  var btnRow = el("div", { display: "flex", gap: "13px", marginTop: "18px" });
+  var fBtn = el("button", { flex: "1", cursor: "pointer", border: "none", background: C.violet, color: "#fff", borderRadius: "18px", padding: "17px 12px", fontSize: "16px", fontWeight: "800", boxShadow: "0 5px 0 " + shade(C.violet) }, "🗂️ Fiches");
   fBtn.addEventListener("click", function () { go({ type: "fiches", id: OEUVRES[0].id }); });
-  var mBtn = el("button", { flex: "1", cursor: "pointer", background: "#fff", color: C.ink, borderRadius: "16px", padding: "15px 12px", fontSize: "15px", fontWeight: "700", border: "2px solid " + C.ink, boxShadow: "0 4px 0 rgba(0,0,0,0.12)" }, "📝 Méthode");
+  var mBtn = el("button", { flex: "1", cursor: "pointer", border: "none", background: C.bleu, color: "#fff", borderRadius: "18px", padding: "17px 12px", fontSize: "16px", fontWeight: "800", boxShadow: "0 5px 0 " + shade(C.bleu) }, "📝 Méthode");
   mBtn.addEventListener("click", function () { go({ type: "methode" }); });
   btnRow.appendChild(fBtn); btnRow.appendChild(mBtn);
   wrap.appendChild(btnRow);
@@ -676,12 +777,12 @@ function OeuvreView(o, activeTab) {
   tabs.push({ id: "aubac", label: "Au bac" });
   var tab = activeTab || "identite";
 
-  var header = el("div", { background: o.couleur, borderRadius: "20px", padding: "18px 18px 20px", color: onColor(o.couleur), boxShadow: "0 6px 0 " + shade(o.couleur) });
-  var back = el("button", { background: "rgba(255,255,255,0.25)", border: "none", color: "inherit", borderRadius: "10px", padding: "6px 12px", fontWeight: "600", fontSize: "13.5px", cursor: "pointer", marginBottom: "12px" }, "← Accueil");
+  var header = el("div", { background: o.couleur, borderRadius: "24px", padding: "18px 19px 20px", color: onColor(o.couleur), boxShadow: "0 7px 0 " + shade(o.couleur) });
+  var back = el("button", { background: "rgba(255,255,255,0.28)", border: "none", color: "inherit", borderRadius: "12px", padding: "7px 13px", fontWeight: "800", fontSize: "13.5px", cursor: "pointer", marginBottom: "13px" }, "← Accueil");
   back.addEventListener("click", function () { go({ type: "home" }); });
   header.appendChild(back);
-  header.appendChild(el("h1", { margin: "0", fontSize: "23px", lineHeight: "1.15" }, o.titre));
-  header.appendChild(el("div", { fontSize: "15px", fontWeight: "600", marginTop: "4px", opacity: "0.95" }, o.auteur + " · " + o.petit));
+  header.appendChild(el("h1", { margin: "0", fontSize: "25px", lineHeight: "1.14", fontWeight: "800", letterSpacing: "-0.3px" }, o.titre));
+  header.appendChild(el("div", { fontSize: "15px", fontWeight: "700", marginTop: "4px", opacity: "0.95" }, o.auteur + " · " + o.petit));
   var hb = el("div", { display: "flex", flexWrap: "wrap", gap: "7px", marginTop: "12px" });
   hb.appendChild(el("span", { background: "rgba(255,255,255,0.22)", borderRadius: "9px", padding: "5px 10px", fontSize: "12.3px", fontWeight: "600" }, "📚 " + o.objet));
   hb.appendChild(el("span", { background: "rgba(255,255,255,0.22)", borderRadius: "9px", padding: "5px 10px", fontSize: "12.3px", fontWeight: "600" }, "🎯 " + o.parcours));
@@ -698,17 +799,20 @@ function OeuvreView(o, activeTab) {
   wrap.appendChild(tabRow);
 
   var body = el("div", { paddingBottom: "40px" });
+  var curTab = null;
+  tabs.forEach(function (t) { if (t.id === tab) curTab = t; });
+  var tabIndex = tabs.indexOf(curTab) + 1;
+  var secObj = null;
+  o.sections.forEach(function (s) { if (s.id === tab) secObj = s; });
+  var bannerColor = secObj ? secObj.couleur : o.couleur;
+  body.appendChild(sectionBanner(tabIndex, curTab.label, bannerColor));
   if (tab === "identite") body.appendChild(identiteCard(o));
   else if (tab === "poemes" && o.poemes) body.appendChild(Poemes(o));
   else if (tab === "aubac") body.appendChild(AuBac(o.aubac, o.couleur));
-  else {
-    var sec = null;
-    o.sections.forEach(function (s) { if (s.id === tab) sec = s; });
-    if (sec) {
-      var c = card(sec.couleur);
-      sec.blocks.forEach(function (b) { c.appendChild(block(b, sec.couleur)); });
-      body.appendChild(c);
-    }
+  else if (secObj) {
+    var c = leftBarCard(secObj.couleur);
+    secObj.blocks.forEach(function (b) { c.appendChild(block(b, secObj.couleur)); });
+    body.appendChild(c);
   }
   wrap.appendChild(body);
   return wrap;
@@ -740,15 +844,15 @@ function Poemes(o) {
     var grid = el("div", { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" });
     o.poemes.forEach(function (p) {
       var b = el("button", {
-        textAlign: "left", background: "#fff", border: "2px solid " + (p.imp ? color : "#E7E4DC"),
-        borderRadius: "14px", padding: "11px 12px", cursor: "pointer",
-        boxShadow: p.imp ? "0 3px 0 " + tint(color, "33") : "0 2px 0 rgba(0,0,0,0.05)"
+        textAlign: "left", background: "#fff", border: "2.5px solid " + (p.imp ? tint(color, "44") : "#E6E8EF"),
+        borderRadius: "16px", padding: "12px 13px", cursor: "pointer",
+        boxShadow: p.imp ? "0 4px 0 " + tint(color, "2A") : "0 3px 0 rgba(20,24,36,0.06)"
       });
       var topline = el("div", { display: "flex", justifyContent: "space-between", alignItems: "center" });
-      topline.appendChild(el("span", { fontSize: "12px", fontWeight: "700", color: color }, String(p.n)));
+      topline.appendChild(el("span", { fontSize: "12.5px", fontWeight: "800", color: color }, String(p.n)));
       topline.appendChild(el("span", { fontSize: "12px" }, p.imp ? "⭐" : ""));
       b.appendChild(topline);
-      b.appendChild(el("div", { fontWeight: "600", fontSize: "14px", color: C.ink, marginTop: "3px", lineHeight: "1.25" }, p.t));
+      b.appendChild(el("div", { fontWeight: "700", fontSize: "14px", color: C.ink, marginTop: "3px", lineHeight: "1.25" }, p.t));
       b.addEventListener("click", function () { showDetail(p.n); });
       grid.appendChild(b);
     });
@@ -841,7 +945,8 @@ function MethodeView() {
     });
     clear(body);
     var m = METHODE[idx];
-    var c = card(m.couleur);
+    body.appendChild(sectionBanner(idx + 1, m.label, m.couleur));
+    var c = leftBarCard(m.couleur);
     m.blocks.forEach(function (b) { c.appendChild(block(b, m.couleur)); });
     body.appendChild(c);
   }
