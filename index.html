@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bac Français">
+<meta name="theme-color" content="#FBFAF7">
+<title>Bac Français — Mes 4 œuvres</title>
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="icon.png">
+<link rel="manifest" href="manifest.json">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #FBFAF7;
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    color: #1E2233;
+    -webkit-text-size-adjust: 100%;
+  }
+  #app {
+    max-width: 520px;
+    margin: 0 auto;
+    padding:
+      calc(18px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right))
+      calc(30px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
+  }
+  button { font-family: inherit; }
+  .row-scroll { display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .row-scroll::-webkit-scrollbar { display: none; }
+  ul.clean { margin: 6px 0 0; padding-left: 0; list-style: none; }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+"use strict";
+
+/* ═══════════════ PALETTE ═══════════════ */
+var C = {
+  bleu: "#2F7BFF", vert: "#16C172", jaune: "#FFC53D", fuchsia: "#E8438E",
+  rouge: "#F0453A", violet: "#8B5CF6", turquoise: "#20C9C9", orange: "#FF8A3D",
+  ink: "#1E2233", paper: "#FBFAF7"
+};
+function tint(hex, a) { return hex + (a || "1A"); }
+function shade(hex) {
+  var n = parseInt(hex.slice(1), 16);
+  var r = Math.max(0, (n >> 16) - 42), g = Math.max(0, ((n >> 8) & 255) - 42), b = Math.max(0, (n & 255) - 42);
+  return "rgb(" + r + "," + g + "," + b + ")";
+}
+function onColor(hex) { return hex === C.jaune ? "#4A3200" : "#fff"; }
+
+/* ═══════════════ DONNÉES DES ŒUVRES ═══════════════ */
+var OEUVRES = [
+  /* ─────────── 1. RIMBAUD ─────────── */
+  {
+    id: "douai", titre: "Les Cahiers de Douai", auteur: "Arthur Rimbaud",
+    petit: "Recueil de 22 poèmes · 1870", couleur: C.bleu,
+    objet: "La poésie du XIXᵉ au XXIᵉ siècle", parcours: "Émancipations créatrices",
+    fiche: {
+      express: "22 poèmes écrits par Rimbaud à 15–16 ans (1870) et confiés à Douai. Un adolescent révolté transforme ses fugues et sa colère en libération par la poésie.",
+      reperes: ["Poésie (sonnets, alexandrins, octosyllabes)", "Entre Parnasse et symbolisme — déjà en rupture", "Contexte : guerre de 1870, chute du Second Empire"],
+      retenir: "Le recueil raconte un geste unique : conquérir sa liberté en écrivant. L'émancipation est totale — politique, sociale, sensorielle ET poétique (il détourne les codes classiques).",
+      themes: ["Amour & sensualité", "Nature & liberté (l'errance)", "La guerre", "Satire de la bourgeoisie & de Napoléon III", "Subversion des formes"],
+      poemes: ["Sensation", "Vénus Anadyomène", "À la Musique", "Roman", "Le Mal", "Le Dormeur du val", "Au Cabaret-Vert", "Ma Bohème"],
+      citations: [
+        { q: "Il a deux trous rouges au côté droit.", r: "Le Dormeur du val" },
+        { q: "On n'est pas sérieux, quand on a dix-sept ans.", r: "Roman" },
+        { q: "Mon auberge était à la Grande-Ourse.", r: "Ma Bohème" }
+      ],
+      ouverture: ["Baudelaire, Les Fleurs du mal", "Verlaine", "Une Saison en enfer"]
+    },
+    identite: [
+      ["Auteur", "Arthur Rimbaud (1854–1891)."],
+      ["Œuvre", "22 poèmes écrits en 1870, quand Rimbaud a 15–16 ans. Publiés après sa mort — ce n'est pas lui qui a choisi le titre."],
+      ["Genre", "Poésie : sonnets, quatrains, alexandrins et octosyllabes."],
+      ["Mouvement", "Entre Parnasse et symbolisme naissant — mais Rimbaud s'en émancipe déjà."],
+      ["Parcours", "« Émancipations créatrices »."]
+    ],
+    sections: [
+      { id: "contexte", label: "Contexte & auteur", couleur: C.turquoise, blocks: [
+        { sub: "Rimbaud, l'ado génie", text: "Né à Charleville (Ardennes), élève brillant mais révolté, Rimbaud étouffe dans sa ville et sa famille. En 1870, à 16 ans, il fait plusieurs fugues et confie ses poèmes à son professeur Izambard puis à Paul Demeny, à Douai. Il abandonnera la poésie très jeune pour partir vivre à l'étranger." },
+        { sub: "Le poète « voyant »", text: "Dans sa célèbre « lettre du voyant », Rimbaud écrit « Je est un autre » : il veut devenir voyant par un « dérèglement de tous les sens », c'est-à-dire tout ressentir pour inventer une poésie neuve." },
+        { sub: "Le contexte : 1870", text: "C'est l'année de la guerre franco-prussienne et de la chute du Second Empire de Napoléon III. Cette violence et cette instabilité nourrissent la révolte du jeune poète." },
+        { sub: "La structure du recueil", text: "22 poèmes en 2 cahiers (une première liasse de 15 poèmes, puis 7 sonnets), qui vont de « Première soirée » à « Ma Bohème »." }
+      ]},
+      { id: "resume", label: "L'essentiel", couleur: C.bleu, blocks: [
+        { text: "On suit un adolescent surdoué et révolté qui transforme ses fugues en libération par la poésie. Le recueil mêle des tons très différents : tendre, moqueur, révolté, joyeux." },
+        { sub: "Les grands thèmes", items: [
+          "Amour et sensualité — les premiers émois, traités avec légèreté (Première soirée, Roman, Sensation).",
+          "Nature et liberté — l'errance, le voyage, la nature complice et maternelle (Ma Bohème, Au Cabaret-Vert).",
+          "La guerre de 1870 — dénoncée avec force (Le Dormeur du val, Le Mal).",
+          "La critique sociale — moquerie de la bourgeoisie et de Napoléon III (À la Musique, Rages de Césars).",
+          "La subversion des formes — il détourne les codes classiques (Vénus Anadyomène)."
+        ]},
+        { callout: "Astuce : les 8 poèmes marqués ⭐ dans l'onglet « Les 22 poèmes » sont les plus utiles à préparer en priorité." }
+      ]},
+      { id: "analyse", label: "Analyse de l'œuvre", couleur: C.violet, blocks: [
+        { sub: "Le projet", text: "À 16 ans, Rimbaud écrit un premier ensemble qui est déjà une déclaration d'indépendance. Ce n'est pas un recueil vraiment prévu (des poèmes confiés à Demeny), mais lus ensemble, ils dessinent une trajectoire : partir d'une poésie apprise à l'école pour aller vers une voix personnelle." },
+        { sub: "Une unité malgré la diversité", text: "Les tons sont très variés (tendre, satirique, macabre, joyeux), mais un même mouvement les relie : un « je » qui refuse (la famille, l'Église, l'Empire, l'ordre bourgeois) et un « je » qui désire (la nature, la route, le corps, la liberté). Ce sont les deux visages de l'émancipation : s'arracher à… et s'élancer vers…" },
+        { sub: "Le corps et les sens au centre", text: "La poésie de Rimbaud passe par les sensations : la faim, le froid, la fatigue, le plaisir. Le corps devient un instrument de connaissance (l'idée du « voyant »). La nature n'est jamais un simple décor : elle est partenaire, mère, amante — et parfois complice, quand elle cache l'horreur (Le Dormeur du val)." },
+        { sub: "L'ironie, sa modernité", text: "Il mélange les registres : l'alexandrin noble et des mots triviaux, des exclamations orales (« Oh ! là là ! »), de l'autodérision (Roman, Ma Bohème). Ce mélange, choquant pour l'époque, est sa modernité : il « désacralise » la poésie pour la rendre vivante." },
+        { sub: "Ce qu'il faut avoir compris", text: "Le recueil parle moins de 22 sujets différents que d'un geste unique : un adolescent qui conquiert sa liberté en écrivant, et qui invente en chemin une poésie qui n'obéit plus aux règles. C'est exactement le sens du parcours." }
+      ]},
+      { id: "style", label: "Style & procédés", couleur: C.fuchsia, blocks: [
+        { sub: "Ce qui fait la « patte » Rimbaud", items: [
+          "Le sonnet détourné : il garde la forme classique mais y met de la révolte, du trivial, de la provocation.",
+          "Le jeu des registres : lyrique (l'amour), satirique (la bourgeoisie), pathétique (la guerre), comique (l'autodérision).",
+          "La chute : un dernier vers qui renverse tout le poème (Le Dormeur du val).",
+          "La nature féminisée : elle devient mère, amante, refuge (Sensation, Ma Bohème).",
+          "Le « je » lyrique : Rimbaud se met en scène, souvent avec ironie (Roman, Ma Bohème)."
+        ]}
+      ]},
+      { id: "parcours", label: "Le parcours", couleur: C.orange, blocks: [
+        { sub: "« Émancipations créatrices »", text: "L'idée : créer, c'est se libérer. La poésie permet à Rimbaud de s'affranchir de tout ce qui l'enferme." },
+        { sub: "Chez Rimbaud, l'émancipation est totale", items: [
+          "Géographique : les fugues, le désir de partir.",
+          "Sociale : le rejet de la bourgeoisie de Charleville.",
+          "Politique : la révolte contre la monarchie et l'Empire.",
+          "Poétique : il casse les codes du Parnasse pour inventer sa propre voix."
+        ]}
+      ]},
+      { id: "citations", label: "Citations", couleur: C.jaune, blocks: [
+        { cite: "Il a deux trous rouges au côté droit.", ref: "Le Dormeur du val", exp: "La chute : ce dernier vers révèle brutalement que le « dormeur » est un soldat mort. Toute la beauté d'avant devient tragique." },
+        { cite: "On n'est pas sérieux, quand on a dix-sept ans.", ref: "Roman", exp: "Rimbaud se moque tendrement de l'adolescence et de ses premières amours : légèreté et autodérision." },
+        { cite: "Mon auberge était à la Grande-Ourse.", ref: "Ma Bohème", exp: "La nature (les étoiles) devient sa maison : image de l'errance libre et heureuse du poète." },
+        { cite: "Je est un autre.", ref: "Lettre dite « du voyant »", exp: "Le poète doit sortir de lui-même pour créer : un manifeste de sa nouvelle poésie." }
+      ]}
+    ],
+    poemes: [
+      { n: 1, t: "Première soirée", f: "8 quatrains d'octosyllabes", r: "Scène de séduction badine : une jeune fille à demi dévêtue, un jeu amoureux léger et malicieux.", a: "Rimbaud renouvelle la poésie amoureuse : sensualité heureuse, ton complice et ironique." },
+      { n: 2, t: "Sensation", f: "2 quatrains d'alexandrins", r: "Le poète rêve d'une promenade au crépuscule, pieds nus dans l'herbe, sans parler, simplement heureux.", a: "Manifeste de la poésie des sens : sentir, pas réfléchir. La nature est presque une amante.", imp: true, plus: "Le futur (« j'irai ») en fait un projet d'évasion, une promesse qu'il se fait à lui-même. Rimbaud fait de la sensation le point de départ de la poésie et fond le corps dans la nature (« heureux comme avec une femme »). Un poème-programme sur la liberté.", cite: "Par les soirs bleus d'été, j'irai dans les sentiers" },
+      { n: 3, t: "Le Forgeron", f: "178 alexandrins, rimes plates", r: "Un forgeron (le peuple) affronte le roi pendant la Révolution et réclame justice et liberté.", a: "Poème politique : la voix du peuple qui s'émancipe de la monarchie." },
+      { n: 4, t: "Soleil et chair", f: "129 alexandrins", r: "Hymne à Vénus et à la nature-déesse : célébration de l'amour, de la vie et d'un âge d'or païen.", a: "Célébration sensuelle du monde et nostalgie face à la laideur de la société moderne." },
+      { n: 5, t: "Ophélie", f: "9 quatrains d'alexandrins", r: "Réécriture de la mort d'Ophélie (Shakespeare) : la jeune fille morte flotte sur la rivière.", a: "Beauté et folie, méditation sur la mort ; Rimbaud réinvente un mythe littéraire." },
+      { n: 6, t: "Bal des pendus", f: "quatrains, alexandrins + octosyllabes", r: "Danse macabre grotesque : des pendus s'agitent comme des pantins.", a: "Parodie de la Ballade des pendus de Villon : humour noir et provocation." },
+      { n: 7, t: "Le Châtiment de Tartufe", f: "sonnet", r: "Un faux dévot (le Tartuffe de Molière) est démasqué et puni.", a: "Satire de l'hypocrisie religieuse ; Rimbaud attaque la fausse dévotion." },
+      { n: 8, t: "Vénus Anadyomène", f: "sonnet d'alexandrins", r: "Au lieu de la belle déesse sortant des eaux, une femme laide et grasse sort d'une baignoire.", a: "Anti-blason provocateur : la laideur crue contre l'idéal du beau.", imp: true, plus: "Rimbaud détruit un mythe classique de la beauté et renverse le blason traditionnel (poème qui vante le corps féminin). La provocation, le réalisme cru et le rejet des codes du Parnasse en font un poème clé de l'émancipation esthétique.", cite: "« Clara Venus » gravé sur la chute des reins" },
+      { n: 9, t: "Les Reparties de Nina", f: "dialogue", r: "Le poète propose à Nina une longue escapade amoureuse à la campagne ; elle répond froidement.", a: "Contraste entre le rêve du poète et la réalité prosaïque : chute ironique." },
+      { n: 10, t: "À la Musique", f: "alexandrins", r: "Sur une place de Charleville, la bourgeoisie parade au concert ; le poète, débraillé, l'observe et s'en moque.", a: "Satire féroce de la bourgeoisie (bête, suffisante) ; le poète se pose en marginal.", imp: true, plus: "Opposition nette entre le poète en marge et les bourgeois ridicules. La critique sociale est mordante : Rimbaud affiche son émancipation par sa tenue et son regard moqueur.", cite: "Moi, je suis débraillé comme un étudiant" },
+      { n: 11, t: "Les Effarés", f: "tercets", r: "De pauvres enfants affamés regardent, dans le froid, le boulanger cuire le pain par un soupirail.", a: "Tendresse pour les misérables et critique de la misère sociale." },
+      { n: 12, t: "Roman", f: "8 sizains d'octosyllabes", r: "Un soir d'été, un ado de dix-sept ans tombe amoureux ; légèreté des premières amours.", a: "Autoportrait ironique de l'adolescence : insouciance et autodérision.", imp: true, plus: "Le titre « Roman » et la construction en scènes racontent une petite histoire. Rimbaud se moque gentiment de lui-même et peint l'ivresse des dix-sept ans : l'émancipation passe aussi par le sentiment.", cite: "On n'est pas sérieux, quand on a dix-sept ans." },
+      { n: 13, t: "Morts de Quatre-vingt-douze…", f: "sonnet", r: "Défense des morts révolutionnaires de 1792 contre ceux qui les récupèrent.", a: "Engagement républicain : hommage aux révolutionnaires, contre l'Empire." },
+      { n: 14, t: "Le Mal", f: "sonnet", r: "Pendant que la guerre massacre les soldats, Dieu reste indifférent et se réjouit des offrandes des riches.", a: "Double critique : la guerre absurde ET une religion complice.", imp: true, plus: "Rimbaud dénonce d'un même geste la guerre de 1870 et l'hypocrisie de l'Église, qui bénit les massacres pendant que la mère pauvre pleure. Poème de révolte anticléricale.", cite: "Il est un Dieu qui rit aux nappes damassées" },
+      { n: 15, t: "Rages de Césars", f: "sonnet", r: "Napoléon III vaincu et prisonnier ressasse ses rêves de gloire perdus.", a: "Satire politique : portrait pathétique de l'empereur déchu après Sedan." },
+      { n: 16, t: "Rêvé pour l'hiver", f: "sonnet", r: "Le poète imagine un voyage en train, l'hiver, dans un wagon rose, avec une amoureuse.", a: "Rêverie tendre et sensuelle : intimité, douceur, évasion." },
+      { n: 17, t: "Le Dormeur du val", f: "sonnet d'alexandrins", r: "Un jeune soldat semble dormir dans un décor de nature paisible… la fin révèle qu'il est mort.", a: "Contraste saisissant beauté / horreur : la guerre dénoncée par un effet de chute.", imp: true, plus: "Le sonnet le plus célèbre du recueil. La nature protectrice et maternelle (« Nature, berce-le chaudement ») contraste avec la mort brutale. Toute la force tient dans la chute (le dernier vers) qui crée un choc : poème antimilitariste bâti sur l'euphémisme (dire « dort » au lieu de « mort »).", cite: "Il a deux trous rouges au côté droit." },
+      { n: 18, t: "Au Cabaret-Vert", f: "sonnet", r: "Après des jours de marche, le poète savoure jambon, bière et le sourire d'une serveuse dans une auberge.", a: "Bonheur simple du vagabond : plaisir des sens et liberté de l'errance.", imp: true, plus: "La joie est physique : la faim, la fatigue, le corps heureux. Rimbaud fait de la poésie avec le trivial et le concret ; le vagabondage devient une forme d'émancipation joyeuse.", cite: "…des tartines / De beurre et du jambon tiède" },
+      { n: 19, t: "La Maline", f: "sonnet", r: "Dans une auberge, une servante espiègle flirte avec le poète attablé.", a: "Scène de genre pleine de sensualité légère et de complicité." },
+      { n: 20, t: "L'Éclatante Victoire de Sarrebrück", f: "sonnet", r: "Description ironique d'une gravure de propagande montrant Napoléon III en « vainqueur ».", a: "Satire de la propagande impériale et de l'empereur ridiculisé." },
+      { n: 21, t: "Le Buffet", f: "sonnet", r: "Portrait d'un vieux buffet plein de linges, d'objets et de souvenirs anciens.", a: "Poésie des objets : le meuble devient mémoire du temps et du passé." },
+      { n: 22, t: "Ma Bohème", f: "sonnet (« Fantaisie »)", r: "Le poète-vagabond marche sur les routes, pauvre mais libre, dort à la belle étoile et fait des rimes.", a: "Autoportrait du poète errant et heureux : la liberté et la création confondues.", imp: true, plus: "Poème qui clôt le recueil et le résume : Rimbaud est pauvre (« poches crevées ») mais totalement libre. La nature est sa maison (« Mon auberge était à la Grande-Ourse ») et marcher, c'est créer (« je rimais »). Le sonnet classique est détourné pour dire la liberté : c'est le manifeste de l'émancipation créatrice.", cite: "Je m'en allais, les poings dans mes poches crevées" }
+    ],
+    aubac: {
+      sujets: [
+        "Les Cahiers de Douai constituent-ils un recueil d'émancipation ?",
+        "Dans le Cahier de Douai, est-ce seulement par la révolte que Rimbaud s'émancipe ? (bac 2026)",
+        "« Il faut être absolument moderne » : cette formule s'applique-t-elle aux Cahiers de Douai ?"
+      ],
+      plan: { titre: "Plan-type — « un recueil d'émancipation ? »", parties: [
+        ["I. Une émancipation contre", "La révolte politique et sociale : la guerre, la bourgeoisie, Napoléon III, la religion (Le Mal, À la Musique, Rages de Césars)."],
+        ["II. Une émancipation vers", "La liberté de l'errance et des sens : le voyage, la nature, le bonheur simple (Sensation, Ma Bohème, Au Cabaret-Vert)."],
+        ["III. Une émancipation poétique", "Il détourne les formes classiques et invente sa voix (Vénus Anadyomène, le sonnet réinventé)."]
+      ]},
+      oral: [
+        "Pourquoi le recueil s'appelle-t-il « Cahiers de Douai » ? Rimbaud a-t-il choisi ce titre ?",
+        "Peut-on vraiment parler d'un « recueil » construit ?",
+        "En quoi Rimbaud est-il déjà « moderne » ?",
+        "Comment la nature est-elle représentée dans les poèmes ?",
+        "Quel poème préférez-vous, et pourquoi ?"
+      ],
+      ouvertures: ["Baudelaire, Les Fleurs du mal (la modernité poétique)", "Verlaine, Une Saison en enfer", "Les autres poètes du programme (Ponge, Dorion)"],
+      piege: "Ne réduis pas le recueil à la seule révolte : il y a aussi la joie, la sensualité et l'humour. Et n'oublie jamais l'émancipation par la forme (la poésie elle-même)."
+    }
+  },
+
+  /* ─────────── 2. ZOLA ─────────── */
+  {
+    id: "potbouille", titre: "Pot-Bouille", auteur: "Émile Zola",
+    petit: "Roman · 1882", couleur: C.vert,
+    objet: "Le roman et le récit du Moyen Âge au XXIᵉ siècle", parcours: "Dévoiler les rouages de la société",
+    fiche: {
+      express: "Octave Mouret arrive à Paris dans un immeuble bourgeois « respectable ». Derrière les façades : adultères, hypocrisie, calculs d'argent. Berthe est mariée de force, devient la maîtresse d'Octave, le scandale éclate — puis tout revient à l'ordre des apparences.",
+      reperes: ["Roman naturaliste (1882)", "Zola — 10ᵉ des Rougon-Macquart", "Cadre : un immeuble rue de Choiseul"],
+      retenir: "Le vrai « héros », c'est l'immeuble = la bourgeoisie entière. Zola en dévoile les rouages : ce qui fait tenir ce monde, c'est l'argent et le paraître, pas la vertu. La fin cyclique montre que rien ne change.",
+      themes: ["Hypocrisie bourgeoise (façade / réalité)", "Argent & mariage arrangé", "Les domestiques (l'envers)", "Corps & instincts"],
+      perso: ["Octave Mouret — ambitieux, rouage cynique", "Mme Josserand — marie ses filles à tout prix", "Berthe & Auguste Vabre — le mariage raté", "Les bonnes — la voix crue de la vérité", "Mme Hédouin — qu'Octave finit par épouser"],
+      citations: [
+        { q: "des panneaux de faux marbre… imitait le vieil argent", r: "Chapitre I — tout est faux" },
+        { q: "des abîmes d'honnêteté", r: "ironie, ch. I" },
+        { q: "« pot-bouille »", r: "le titre = la cuisine ordinaire" }
+      ],
+      ouverture: ["Zola, Au Bonheur des Dames (la suite)", "Balzac, Le Père Goriot", "Maupassant, Bel-Ami"]
+    },
+    identite: [
+      ["Auteur", "Émile Zola (1840–1902), chef de file du naturalisme."],
+      ["Œuvre", "Roman de 1882, 10ᵉ des Rougon-Macquart."],
+      ["Cadre", "Un immeuble bourgeois « respectable » de la rue de Choiseul, à Paris."],
+      ["Mouvement", "Naturalisme : observer un milieu comme un savant observe un laboratoire."],
+      ["Parcours", "« Dévoiler les rouages de la société »."]
+    ],
+    sections: [
+      { id: "contexte", label: "Contexte & auteur", couleur: C.turquoise, blocks: [
+        { sub: "Zola et le naturalisme", text: "Zola veut écrire « l'histoire naturelle et sociale d'une famille sous le Second Empire » : les 20 romans des Rougon-Macquart. Le naturalisme, c'est étudier les personnages comme des cas, marqués par leur hérédité, leur milieu et leur époque." },
+        { sub: "La genèse (à retenir)", text: "Après Nana et L'Assommoir, on accuse Zola d'immoralité. Il répond avec Pot-Bouille, un roman qu'il n'avait pas prévu, pour « régler ses comptes » avec la bourgeoisie et retourner contre elle la critique de morale." },
+        { sub: "Le diptyque", text: "Octave Mouret, le héros, se retrouve dans le roman suivant, Au Bonheur des Dames (1883), devenu grand patron. Pot-Bouille détruit l'ancien monde bourgeois ; la suite montre le capitalisme moderne." },
+        { sub: "La structure", text: "Roman d'abord publié en feuilleton (1882), en 18 chapitres, avec une quasi-unité de lieu : presque tout se passe dans l'immeuble." }
+      ]},
+      { id: "resume", label: "L'intrigue", couleur: C.vert, blocks: [
+        { text: "Octave Mouret, jeune provincial ambitieux venu de Plassans, monte à Paris et s'installe dans un immeuble qu'on lui présente comme un modèle de moralité. Derrière les belles façades : adultères, hypocrisie, calculs d'argent et mépris des domestiques." },
+        { text: "Cœur de l'intrigue : les Josserand marient de force leur fille Berthe à Auguste Vabre — mariage arrangé, avec une dot promise mais jamais versée. Malheureuse, Berthe devient la maîtresse d'Octave. Scandale quand Auguste les surprend et que Berthe s'enfuit « en chemise » dans les étages." },
+        { callout: "La fin (essentielle) : tout rentre dans l'ordre… des apparences. Berthe se réconcilie avec Auguste, Octave épouse la riche veuve Mme Hédouin, et un nouveau locataire arrive à qui le concierge vante « la moralité » de la maison. Le cycle recommence à l'identique." }
+      ]},
+      { id: "analyse", label: "Analyse de l'œuvre", couleur: C.rouge, blocks: [
+        { sub: "Le projet", text: "Le vrai « héros » du roman n'est pas Octave, c'est l'immeuble — donc la bourgeoisie tout entière. Zola en fait une coupe, comme on coupe une maison en deux pour voir tous les étages en même temps. Son but : prouver que la respectabilité bourgeoise est une comédie, et que les vices qu'elle reproche au peuple (dans Nana, L'Assommoir) existent aussi chez les « honnêtes gens », mais cachés." },
+        { sub: "Une construction en machine", text: "Presque tout se passe au même endroit (unité de lieu). Zola multiplie les intrigues parallèles : chaque appartement est un « cas ». Le lecteur circule sans cesse entre la façade et les coulisses. Et surtout, le roman est cyclique : la fin recopie le début (un nouveau locataire, le même discours). Ce cercle dit l'essentiel — rien ne se réforme, le système se reproduit." },
+        { sub: "Un roman qui accuse sans juger", text: "Fidèle au naturalisme, Zola ne fait pas la morale : il installe un dispositif qui accuse tout seul. L'opposition des escaliers (grand escalier / escalier de service), le contrepoint des bonnes qui commentent, les corps malades : le lecteur voit, et conclut de lui-même." },
+        { sub: "Une satire féroce… et drôle", text: "Attention à ne pas en faire un roman uniquement noir : Zola est cruel mais souvent comique. La satire passe par l'exagération et le grotesque (Mme Josserand et ses filles, les scènes de ménage). C'est une comédie humaine cruelle, pas un tract." },
+        { sub: "Ce qu'il faut avoir compris", text: "« Dévoiler les rouages », c'est montrer que ce qui fait tenir ce monde n'est pas la vertu affichée mais l'argent, le paraître et l'hypocrisie. Et qu'Octave réussit précisément parce qu'il joue ce jeu mieux que les autres." }
+      ]},
+      { id: "perso", label: "Personnages", couleur: C.violet, blocks: [
+        { sub: "Octave Mouret", text: "Le fil conducteur : ambitieux, séducteur, il veut réussir. Attention : ce n'est pas un héros moral, plutôt un « rouage » de plus — il joue le système mieux que les autres, et sa réussite finale est cynique." },
+        { sub: "Les Josserand", text: "Mme Josserand, mère tyrannique obsédée par le mariage de ses filles (elle les « exhibe » comme des marchandises) ; M. Josserand, effacé, en meurt de honte ; Berthe, mariée de force ; Saturnin, le fils « fou »." },
+        { sub: "Autour d'eux", items: [
+          "Auguste Vabre — mari maniaque et avare de Berthe ; les Vabre sont la famille propriétaire.",
+          "Les Duveyrier — notable qui entretient une maîtresse, Clarisse ; il tentera de se suicider.",
+          "Marie Pichon — première liaison facile d'Octave ; l'oncle Bachelard, vieux viveur.",
+          "Trublot — l'ami qui « ouvre les yeux » d'Octave sur l'hypocrisie de la maison.",
+          "Adèle — la bonne des Josserand, qui accouche seule dans sa mansarde glacée : scène finale terrible.",
+          "Mme Hédouin — patronne du Bonheur des Dames, que finit par épouser Octave."
+        ]}
+      ]},
+      { id: "themes", label: "Thèmes", couleur: C.fuchsia, blocks: [
+        { sub: "L'hypocrisie bourgeoise", text: "Le thème central : un décalage permanent entre la façade honnête et la réalité sordide. Tout le monde joue un rôle de respectabilité." },
+        { sub: "L'argent et le mariage", text: "On se marie par intérêt, jamais par amour. Le mariage est un « marché » : dots, héritages, calculs. La famille Josserand en est l'exemple." },
+        { sub: "Les domestiques", text: "L'envers de la maison. Depuis la cour et l'escalier de service, les bonnes voient tout et commentent crûment les turpitudes de leurs maîtres : c'est par elles que la vérité éclate." },
+        { sub: "Le corps et les instincts", text: "Fidèle au naturalisme, Zola donne à chaque personnage une faiblesse physique (migraines, maladies, folie…) : les instincts et le corps gouvernent les êtres." }
+      ]},
+      { id: "parcours", label: "Le parcours", couleur: C.bleu, blocks: [
+        { sub: "« Dévoiler les rouages de la société »", text: "Zola ne raconte pas seulement des adultères : il démonte, pièce par pièce, la mécanique cachée d'un ordre social. Il montre comment l'argent, les apparences et l'hypocrisie font tourner la bourgeoisie." },
+        { text: "Le romancier se fait « savant » : l'immeuble est son laboratoire. Le titre « pot-bouille » (la cuisine ordinaire) résume tout : sous les belles manières, une cuisine morale sordide — et le lecteur est invité à s'y reconnaître." }
+      ]},
+      { id: "citations", label: "Citations", couleur: C.jaune, blocks: [
+        { cite: "des panneaux de faux marbre… la rampe imitait le vieil argent", ref: "Chapitre I", exp: "Le champ lexical de l'imitation : dans cet immeuble, tout est faux. Le décor annonce l'hypocrisie des habitants." },
+        { cite: "Derrière les belles portes d'acajou, il y avait comme des abîmes d'honnêteté.", ref: "Chapitre I", exp: "Ironie mordante : ces portes « honnêtes » cachent en réalité tous les vices. Le paraître contre la vérité." },
+        { cite: "« Pot-bouille »", ref: "Le titre", exp: "Mot familier pour la cuisine de tous les jours : image de la bourgeoisie où tout mijote et se corrompt dans la même marmite." },
+        { note: "Pour l'oral : choisis 3–4 passages que tu as vraiment lus et annotés dans ton édition, plutôt que des citations approximatives." }
+      ]}
+    ],
+    aubac: {
+      sujets: [
+        "Pot-Bouille n'est-il qu'une satire de la bourgeoisie ?",
+        "En quoi l'immeuble de la rue de Choiseul est-il une « machine à dévoiler » la société ?",
+        "Le mariage, dans Pot-Bouille, n'est-il qu'une affaire d'argent ?"
+      ],
+      plan: { titre: "Plan-type — « une machine à dévoiler ? »", parties: [
+        ["I. L'espace révélateur", "Façade et grand escalier (le paraître) contre escalier de service et cour des bonnes (la vérité)."],
+        ["II. Le mariage comme marché", "Les manœuvres de Mme Josserand, le couple Berthe-Auguste, la dot jamais versée."],
+        ["III. Une satire sans espoir", "Octave n'est pas un témoin moral mais un rouage ; la structure cyclique montre que rien ne change."]
+      ]},
+      oral: [
+        "Que signifie le titre « Pot-Bouille » ?",
+        "Octave Mouret est-il un héros ?",
+        "Quel rôle jouent les domestiques dans le roman ?",
+        "Qu'est-ce que le naturalisme ?",
+        "Pourquoi la fin (le nouveau locataire) est-elle importante ?"
+      ],
+      ouvertures: ["Zola, Au Bonheur des Dames (la suite)", "Balzac, Le Père Goriot (monter à Paris)", "Maupassant, Bel-Ami (réussir par les femmes)", "Flaubert, Madame Bovary"],
+      piege: "N'oublie pas l'ironie et le comique de Zola : ce n'est pas qu'un roman noir. Et ne fais pas d'Octave un personnage positif — il réussit en jouant le système, c'est le plus cynique de tous."
+    }
+  },
+
+  /* ─────────── 3. SARRAUTE ─────────── */
+  {
+    id: "sarraute", titre: "Pour un oui ou pour un non", auteur: "Nathalie Sarraute",
+    petit: "Théâtre · 1982", couleur: C.violet,
+    objet: "Le théâtre du XVIIᵉ au XXIᵉ siècle", parcours: "Théâtre et dispute",
+    fiche: {
+      express: "Deux amis de toujours, H1 et H2, se brouillent à cause d'une phrase dite avec un certain ton condescendant (« C'est bien… ça »). À partir de ce rien, la dispute fait remonter des rapports de force cachés. L'amitié se brise « pour un oui ou pour un non ».",
+      reperes: ["Théâtre — Nouveau Théâtre", "Sarraute (1900–1999), d'origine russe", "Pièce de 1982, très courte, huis clos"],
+      retenir: "Le vrai sujet, c'est le langage : ce qu'il cache et ne parvient pas à dire. La dispute n'a pas de « vraie » cause, juste un ton. Théâtre sans intrigue ni décor : tout se joue sous les mots.",
+      themes: ["L'infime qui détruit tout", "Les non-dits, la violence sous les mots", "Le besoin de reconnaissance", "L'incommunicabilité"],
+      perso: ["H1 — le sensible", "H2 — domine par le conformisme", "Le couple voisin — les idées reçues", "Notions : tropismes, sous-conversation"],
+      citations: [
+        { q: "C'est bien… ça.", r: "la phrase déclencheuse" },
+        { q: "Pour un oui ou pour un non", r: "le titre" }
+      ],
+      ouverture: ["Beckett, En attendant Godot", "Ionesco, La Cantatrice chauve", "Marivaux, La Dispute"]
+    },
+    identite: [
+      ["Autrice", "Nathalie Sarraute (1900–1999), d'origine russe, figure du Nouveau Roman et du Nouveau Théâtre."],
+      ["Œuvre", "Pièce d'abord radiophonique (1981), publiée en 1982, jouée sur scène en 1986."],
+      ["Forme", "Très courte (~30 pages) : deux personnages, presque pas de décor, un huis clos."],
+      ["Mouvement", "Nouveau Théâtre : la parole compte plus que l'action visible."],
+      ["Parcours", "« Théâtre et dispute »."]
+    ],
+    sections: [
+      { id: "contexte", label: "Contexte & autrice", couleur: C.turquoise, blocks: [
+        { sub: "Qui est Nathalie Sarraute ?", text: "Née en Russie en 1900, arrivée enfant à Paris, elle étudie le droit et les lettres. Marquée par Proust et Woolf, passionnée de psychanalyse, elle invente en 1939 la notion qui traverse toute son œuvre avec le livre Tropismes. Elle écrit jusqu'à la fin du XXᵉ siècle." },
+        { sub: "Le Nouveau Théâtre", text: "Comme Beckett (En attendant Godot) ou Ionesco (Rhinocéros), Sarraute se méfie du langage et casse les codes : plus vraiment d'intrigue, de héros, ni de grand événement. Ce qui compte, c'est ce qui se passe sous les mots." },
+        { sub: "La genèse", text: "D'abord écrite pour la radio (1981), la pièce est publiée en 1982 et créée au théâtre en 1986. C'est la pièce la plus jouée de Sarraute." }
+      ]},
+      { id: "resume", label: "L'essentiel", couleur: C.violet, blocks: [
+        { text: "Deux amis de toujours, appelés seulement H1 et H2, se retrouvent. H2 reproche à H1 de s'être éloigné. Peu à peu, on découvre la cause de la brouille : une phrase anodine, dite un jour avec un certain ton un peu condescendant — « C'est bien… ça » — au moment où H2 lui annonçait un petit succès." },
+        { sub: "Le mouvement de la dispute", items: [
+          "Les retrouvailles, en apparence amicales.",
+          "H2 avoue son malaise ; on remonte à la fameuse phrase et à son intonation.",
+          "Renversement : tour à tour, chacun devient le dominant puis le dominé.",
+          "Un couple de voisins intervient et juge — au nom des idées reçues et du « bonheur » conforme.",
+          "L'amitié se brise… « pour un oui ou pour un non »."
+        ]},
+        { callout: "L'idée forte : aucun mot vraiment blessant n'est prononcé. Tout part d'un ton, d'une syllabe. Sous la conversation banale, une violence secrète." }
+      ]},
+      { id: "analyse", label: "Analyse de l'œuvre", couleur: C.rouge, blocks: [
+        { sub: "Le projet", text: "Sarraute veut faire du théâtre avec ce qui, d'habitude, reste invisible : les tropismes, ces micro-réactions intérieures. Toute la pièce naît d'un rien (« C'est bien… ça ») pour prouver une chose : sous la banalité des rapports humains gronde une violence, des rapports de pouvoir, la peur d'être jugé ou rabaissé." },
+        { sub: "Une construction sans intrigue", text: "Il n'y a pas d'histoire au sens classique : un seul mouvement, une dispute qui s'étire, se renverse et s'aggrave. L'arrivée du couple voisin introduit le regard du « sens commun », qui ne comprend rien et range tout dans des normes. La fin reste ouverte : c'est la rupture, sans réconciliation." },
+        { sub: "Le pouvoir du dépouillement", text: "Pas de noms, pas de décor, pas d'époque : ce vide n'est pas un manque, c'est le procédé. Comme on n'a rien d'autre à quoi se raccrocher, on est forcé d'écouter les mots et leurs sous-entendus. Le spectateur devient une sorte d'enquêteur du non-dit." },
+        { sub: "Un enjeu plus profond qu'une querelle", text: "Ce n'est pas juste deux amis qui se fâchent. La pièce parle de l'incommunicabilité, du besoin d'être reconnu, de la difficulté d'être soi face au regard de l'autre. Une amitié de trente ans peut se briser parce qu'un ton a fait sentir à l'un qu'il était « en dessous ». La banalité devient vertige." },
+        { sub: "Ce qu'il faut avoir compris", text: "La « dispute » ne porte sur rien que l'on puisse vraiment dire. Le vrai sujet de la pièce, c'est le langage lui-même : ce qu'il cache, ce qu'il trahit, et tout ce qu'il ne parvient pas à dire." }
+      ]},
+      { id: "perso", label: "Personnages", couleur: C.fuchsia, blocks: [
+        { sub: "H1 et H2", text: "Deux hommes, sans nom, sans passé précis, sans physique décrit — presque deux voix. H1 est plutôt le sensible ; H2, souvent perçu comme celui qui domine par le conformisme et les idées reçues." },
+        { sub: "Le couple voisin (H3 et sa femme)", text: "Ils arrivent pour arbitrer et incarnent le regard « normal », les clichés du bonheur et de l'amitié. Ils ne comprennent pas l'enjeu réel." },
+        { callout: "Pourquoi si peu de détails ? Sarraute veut l'épure : pas de décor, pas de temps précis. Seule compte la confrontation des mots." }
+      ]},
+      { id: "notions", label: "Notions clés", couleur: C.orange, blocks: [
+        { sub: "Les 3 mots à maîtriser", items: [
+          "Tropismes : les mouvements intérieurs minuscules, ces émotions fugaces et innommables qui s'agitent sous les mots. C'est LE cœur de l'œuvre de Sarraute.",
+          "Sous-conversation : ce qui se joue en dessous du dialogue apparent — les non-dits, les vrais enjeux cachés.",
+          "Incommunicabilité : deux personnes parlent… et ne se comprennent pas vraiment."
+        ]}
+      ]},
+      { id: "style", label: "Style & procédés", couleur: C.bleu, blocks: [
+        { sub: "L'écriture de Sarraute", items: [
+          "Les points de suspension partout : l'hésitation, le non-dit, le tropisme qui affleure sans se dire.",
+          "Des phrases inachevées, reprises, corrigées : on cherche le mot juste (procédé appelé épanorthose).",
+          "Une parole ordinaire, banale, mais chargée de tension.",
+          "Un théâtre réduit à la parole : presque pas d'action visible, tout se joue dans l'échange."
+        ]}
+      ]},
+      { id: "parcours", label: "Le parcours", couleur: C.vert, blocks: [
+        { sub: "« Théâtre et dispute »", text: "Ici, la dispute déjoue les codes : elle éclate pour rien, sans mot blessant, sans coup d'éclat — juste à cause d'un ton. Aucune vraie « raison »." },
+        { text: "Sarraute renouvelle la dispute théâtrale : le conflit ne vient pas d'un grand enjeu (pouvoir, amour, argent) mais de l'infime et du non-dit. Le langage lui-même devient l'action dramatique — c'est en parlant que tout se joue et se détruit." }
+      ]},
+      { id: "citations", label: "Citations", couleur: C.jaune, blocks: [
+        { cite: "C'est bien… ça.", ref: "La phrase déclencheuse", exp: "Ces trois mots, dits avec une certaine intonation condescendante, suffisent à faire basculer une amitié. Tout le sujet de la pièce est là." },
+        { cite: "Pour un oui ou pour un non", ref: "Le titre", exp: "L'expression populaire dit une brouille née de presque rien : elle résume l'idée que l'infime peut tout détruire." },
+        { note: "Idée à réutiliser : chez Sarraute, les mots ordinaires sont des armes invisibles ; on se déchire sans jamais se battre ouvertement." }
+      ]}
+    ],
+    aubac: {
+      sujets: [
+        "Dans Pour un oui ou pour un non, la dispute a-t-elle pour fonction de faire éclater la vérité ?",
+        "En quoi cette pièce remet-elle en question les conventions théâtrales traditionnelles ?",
+        "La dispute entre H1 et H2 révèle-t-elle les limites de la communication humaine ?"
+      ],
+      plan: { titre: "Plan-type — « faire éclater la vérité ? »", parties: [
+        ["I. Une dispute qui cherche la vérité", "H1 veut comprendre pourquoi leur amitié s'est refroidie."],
+        ["II. Une vérité qui échappe", "Sous les mots, les tropismes : on ne prouve rien, tout reste dans le ressenti."],
+        ["III. Ce qu'elle révèle vraiment", "Des rapports de force, de jalousie et de domination cachés — plus que « la » vérité."]
+      ]},
+      oral: [
+        "Qu'est-ce qu'un tropisme ? Une sous-conversation ?",
+        "Pourquoi les personnages n'ont-ils pas de nom ?",
+        "En quoi est-ce du « Nouveau Théâtre » ?",
+        "Cette dispute est-elle plutôt comique ou tragique ?",
+        "Comment mettriez-vous cette pièce en scène ?"
+      ],
+      ouvertures: ["Beckett, En attendant Godot", "Ionesco, La Cantatrice chauve (l'absurde du langage)", "Marivaux, La Dispute", "Sarraute, Enfance"],
+      piege: "Ne cherche pas une « vraie » cause à la dispute : le sujet de la pièce, c'est justement que la cause est infime (le ton, pas les mots). Et ne confonds pas H1 (le sensible) et H2."
+    }
+  },
+
+  /* ─────────── 4. LA BOÉTIE ─────────── */
+  {
+    id: "laboetie", titre: "Discours de la servitude volontaire", auteur: "Étienne de La Boétie",
+    petit: "Essai · vers 1548", couleur: C.orange,
+    objet: "La littérature d'idées du XVIᵉ au XVIIIᵉ siècle", parcours: "Défendre et entretenir la liberté",
+    fiche: {
+      express: "Pourquoi des millions d'hommes obéissent-ils à un seul tyran ? Parce qu'ils y consentent. Le pouvoir tient par l'habitude, les divertissements et une pyramide de complices — pas par la force. La solution : cesser de servir.",
+      reperes: ["Essai / littérature d'idées (vers 1548)", "La Boétie (1530–1563), ami de Montaigne", "Écrit vers 18 ans, publié en 1574"],
+      retenir: "Thèse dérangeante : nous sommes complices de ce qui nous domine. Se libérer, c'est d'abord un refus intérieur, non-violent. « Défendre et entretenir » : la liberté n'est jamais acquise.",
+      themes: ["Liberté naturelle", "Servitude volontaire (le consentement)", "Habitude & éducation", "« Pain et jeux »", "La pyramide des complices", "Amitié vs complicité"],
+      citations: [
+        { q: "Soyez résolus de ne servir plus, et vous voilà libres.", r: "la formule clé" },
+        { q: "…de bête devenir homme.", r: "la liberté naturelle" },
+        { q: "Ce sont quatre ou cinq qui maintiennent le tyran.", r: "les complices" }
+      ],
+      piege: "Le peuple obéit par HABITUDE et consentement, pas par peur. Ne confonds pas force et habitude.",
+      ouverture: ["Montaigne, Les Essais", "Rousseau, Du contrat social", "Les Lumières (Voltaire, Diderot)"]
+    },
+    identite: [
+      ["Auteur", "Étienne de La Boétie (1530–1563), magistrat à Bordeaux et ami intime de Montaigne."],
+      ["Œuvre", "Texte écrit très jeune (16–18 ans), vers 1548. Publié après sa mort, en 1574."],
+      ["Genre", "Essai / discours de philosophie politique (littérature d'idées)."],
+      ["Contexte", "Renaissance et montée de la monarchie absolue."],
+      ["Parcours", "« Défendre et entretenir la liberté »."]
+    ],
+    sections: [
+      { id: "contexte", label: "Contexte & auteur", couleur: C.turquoise, blocks: [
+        { sub: "La Boétie, l'humaniste", text: "Né à Sarlat, La Boétie reçoit une brillante éducation humaniste et devient magistrat au Parlement de Bordeaux. Il est surtout connu pour son amitié exceptionnelle avec Montaigne, qui lui rend hommage dans les Essais. Il meurt jeune, à 33 ans." },
+        { sub: "Un texte écrit à 18 ans", text: "Fait extraordinaire : La Boétie écrit ce texte fulgurant vers 16–18 ans. Il ne le publie pas de son vivant." },
+        { sub: "La postérité", text: "Publié après la Saint-Barthélemy (1572), le Discours est récupéré par les protestants comme une arme contre la monarchie. Depuis, il est lu comme un grand texte sur la liberté, toujours d'actualité." }
+      ]},
+      { id: "resume", label: "La thèse", couleur: C.orange, blocks: [
+        { sub: "Le paradoxe de départ", text: "Comment des millions d'hommes peuvent-ils obéir à un seul tyran, alors qu'il suffirait de cesser de le servir pour être libres ? La Boétie part de cet étonnement." },
+        { sub: "La réponse", text: "Le tyran ne tient pas par la force, mais par le consentement du peuple. Les gens acceptent leur propre servitude — d'où le titre : une servitude « volontaire »." }
+      ]},
+      { id: "analyse", label: "Analyse de l'œuvre", couleur: C.rouge, blocks: [
+        { sub: "Le projet", text: "La Boétie veut renverser une évidence. On croit que le tyran opprime par la force ; il démontre que c'est le peuple qui se soumet lui-même. Son but n'est pas seulement d'expliquer, mais de réveiller : le texte est autant une démonstration qu'un appel à ouvrir les yeux." },
+        { sub: "Une stratégie qui piège le lecteur", text: "Le raisonnement avance par étapes qui mènent le lecteur vers sa propre responsabilité. Il part d'un étonnement (le paradoxe), pose la liberté comme naturelle (la preuve par les animaux, l'égalité des hommes), explique ensuite la servitude (l'habitude, l'éducation, les divertissements), puis dévoile le mécanisme caché (la pyramide des complices) et conclut sur la solution : cesser de servir." },
+        { sub: "Convaincre ET persuader", text: "Le ton est à la fois philosophique et polémique. La Boétie raisonne, mais il émeut aussi : images fortes (« se coupe la gorge »), apostrophes, questions rhétoriques. Il sait qu'il faut toucher le lecteur pour le faire agir : le raisonnement convainc, l'émotion persuade. C'est un texte de combat." },
+        { sub: "Une portée intemporelle", text: "Le texte dépasse la seule critique des rois : il vaut pour toute domination (politique, mais aussi sociale ou médiatique). C'est tout le sens du parcours « défendre et entretenir » : la liberté n'est jamais gagnée une fois pour toutes, l'habitude la ronge en permanence." },
+        { sub: "Ce qu'il faut avoir compris", text: "La thèse centrale est dérangeante : nous sommes complices de ce qui nous domine. Se libérer ne commence pas par une révolte armée, mais par un refus intérieur — cesser d'y consentir." }
+      ]},
+      { id: "argument", label: "L'argumentation", couleur: C.bleu, blocks: [
+        { passage: "1. La liberté est naturelle", text: "Preuve par les animaux : même les bêtes résistent quand on veut les capturer. Nous sommes tous « coulés au même moule », égaux et « frères ». Retrouver la liberté, c'est « de bête devenir homme »." },
+        { passage: "2. Pourquoi on obéit : l'habitude", text: "La contrainte ne s'exerce qu'une fois ; ensuite, l'habitude fait le reste. Ceux qui naissent dans la servitude « prennent pour leur état de nature leur état de naissance »." },
+        { passage: "3. L'abêtissement", text: "Les tyrans endorment le peuple par les divertissements — « pain et jeux », théâtres, spectacles : ce sont les « appâts de la servitude »." },
+        { passage: "4. La pyramide des complices", text: "Le ressort caché du pouvoir : « quatre ou cinq » hommes soutiennent le tyran, chacun en tient une centaine, et ainsi de suite. Une foule de petits profiteurs (« tyranneaux ») entretient la tyrannie — non par amitié, mais par intérêt." },
+        { passage: "5. La solution", text: "Non-violente et simple : il suffit de vouloir. « Soyez résolus de ne servir plus, et vous voilà libres. »" }
+      ]},
+      { id: "themes", label: "Thèmes", couleur: C.fuchsia, blocks: [
+        { sub: "À retenir", items: [
+          "La liberté, état naturel de l'homme (et même des bêtes).",
+          "La servitude volontaire : une aliénation qu'on intériorise.",
+          "Le poids de l'habitude, de la coutume et de l'éducation.",
+          "L'aliénation par le divertissement (« pain et jeux »).",
+          "La mécanique de la tyrannie : la chaîne des complices intéressés.",
+          "L'amitié, opposée à la complicité — les méchants « ne s'entr'aiment pas, ils s'entrecraignent »."
+        ]}
+      ]},
+      { id: "style", label: "Style & procédés", couleur: C.violet, blocks: [
+        { sub: "Un texte de combat", items: [
+          "Des questions rhétoriques et des apostrophes au lecteur pour le secouer.",
+          "Un registre pathétique : images fortes (« se coupe la gorge ») pour émouvoir.",
+          "Une gradation numérique frappante : de « quatre ou cinq » à des millions.",
+          "Des exemples antiques (Néron, César) et la dénonciation de la servitude « douce », la plus dangereuse."
+        ]}
+      ]},
+      { id: "parcours", label: "Le parcours", couleur: C.vert, blocks: [
+        { sub: "« Défendre et entretenir la liberté »", text: "Deux gestes. Défendre : le texte est une arme, un discours de combat contre la tyrannie. Entretenir : la liberté n'est jamais acquise, il faut la protéger tous les jours." },
+        { text: "Message toujours actuel : rester libre, c'est un exercice quotidien de conscience — refuser l'habitude, penser par soi-même, ne pas se laisser endormir." }
+      ]},
+      { id: "citations", label: "Citations", couleur: C.jaune, blocks: [
+        { cite: "Soyez résolus de ne servir plus, et vous voilà libres.", ref: "La formule la plus célèbre", exp: "La liberté est un pur effet de la volonté : pas besoin d'armes, il suffit de cesser d'obéir. C'est un éloge de la désobéissance." },
+        { cite: "…de bête devenir homme.", ref: "Sur la liberté naturelle", exp: "Servir, c'est régresser à l'état animal ; se libérer, c'est une métamorphose morale pour redevenir pleinement humain. Cœur de l'humanisme de La Boétie." },
+        { cite: "Ce sont quatre ou cinq qui maintiennent le tyran.", ref: "La pyramide des complices", exp: "Le pouvoir tient par une chaîne de profiteurs, pas par la seule force. C'est la démonstration la plus originale du texte." }
+      ]}
+    ],
+    aubac: {
+      sujets: [
+        "« Soyez résolus de ne servir plus, et vous voilà libres. » — Suffit-il de cesser d'obéir pour être libre ?",
+        "Le pouvoir repose-t-il sur la force ou sur le consentement ?",
+        "La liberté est-elle un don de la nature ou une conquête permanente ?"
+      ],
+      plan: { titre: "Plan-type — « force ou consentement ? »", parties: [
+        ["I. Le tyran semble régner par la force", "La peur, l'armée, la contrainte apparente."],
+        ["II. Mais c'est le consentement qui fait le tyran", "L'habitude, l'abêtissement, la pyramide des complices."],
+        ["III. Donc la liberté est à portée de main", "Il suffit de cesser de servir — mais est-ce vraiment si simple ?"]
+      ]},
+      oral: [
+        "Qu'est-ce que la « servitude volontaire » ?",
+        "Pourquoi les hommes acceptent-ils de servir ?",
+        "Quelle solution propose La Boétie ?",
+        "En quoi ce texte est-il humaniste ?",
+        "Ce texte est-il toujours d'actualité ?"
+      ],
+      ouvertures: ["Montaigne, Les Essais (l'amitié, la liberté)", "Rousseau, Du contrat social", "Les Lumières (Voltaire, Diderot)", "Les autres textes du parcours (Fontenelle, Graffigny)"],
+      piege: "L'erreur classique : dire que le peuple obéit par PEUR. Faux ! Selon La Boétie, c'est par HABITUDE et CONSENTEMENT. Ne confonds jamais force et habitude."
+    }
+  }
+];
+
+/* ═══════════════ MÉTHODE ═══════════════ */
+var METHODE = [
+  { label: "La dissertation", couleur: C.bleu, blocks: [
+    { sub: "1. Analyser le sujet", text: "Souligne les mots-clés et définis-les. Repère si c'est une question fermée (réponse oui/non) ou ouverte." },
+    { sub: "2. La problématique", text: "Reformule la tension du sujet en une seule question qui guidera tout le devoir." },
+    { sub: "3. Choisir le plan", text: "Question fermée → plan dialectique (I. Oui… / II. Mais… / III. Dépassement). Question ouverte → plan par aspects. Toujours 3 parties, 2 à 3 paragraphes chacune." },
+    { sub: "4. Le paragraphe", text: "1 idée = un argument + un exemple précis de l'œuvre + une analyse. Jamais d'exemple sans analyse." },
+    { sub: "5. Intro & conclusion", text: "Intro : accroche → présentation œuvre/auteur → problématique → annonce du plan. Conclusion : bilan des parties + ouverture." }
+  ]},
+  { label: "Le commentaire", couleur: C.vert, blocks: [
+    { sub: "Le principe", text: "On n'explique pas le texte ligne à ligne : on construit 2–3 axes de lecture qui répondent à une problématique." },
+    { sub: "Éviter le piège", text: "Pas de paraphrase (redire le texte). On analyse : citation courte + procédé (figure, énonciation, rythme…) + effet/interprétation." },
+    { sub: "La méthode", text: "Lis plusieurs fois, repère les procédés, regroupe-les en axes, puis rédige : intro (situer le texte + problématique + plan), développement, conclusion." }
+  ]},
+  { label: "L'oral", couleur: C.orange, blocks: [
+    { sub: "Le déroulé (20 min)", text: "Lecture expressive du texte, puis explication linéaire (on suit le texte, mouvement par mouvement), puis une question de grammaire, enfin l'entretien sur l'œuvre que tu as choisie." },
+    { sub: "L'explication linéaire", text: "Avance dans l'ordre du texte : pour chaque passage, un procédé → un effet. Termine par une petite conclusion." },
+    { sub: "L'entretien", text: "Présente l'œuvre choisie, dis pourquoi elle t'a marquée, défends un avis personnel. Rattache toujours au parcours." },
+    { sub: "Conseils", text: "Prépare une vingtaine de textes, aie un avis argumenté sur chaque œuvre, et connais bien le parcours associé." }
+  ]}
+];
+
+/* ═══════════════ MINI-DOM HELPERS ═══════════════ */
+function el(tag, style, content) {
+  var e = document.createElement(tag);
+  if (style) { for (var k in style) { if (style.hasOwnProperty(k)) e.style[k] = style[k]; } }
+  if (content != null) {
+    if (typeof content === "string") e.textContent = content;
+    else if (Array.isArray(content)) content.forEach(function (c) { if (c) e.appendChild(c); });
+    else e.appendChild(content);
+  }
+  return e;
+}
+function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+
+/* ═══════════════ PERSISTANCE (localStorage) ═══════════════ */
+var STORE_KEY = "bacfr_state_v1";
+function loadState() {
+  try { var s = JSON.parse(localStorage.getItem(STORE_KEY)); return s && typeof s === "object" ? s : {}; }
+  catch (e) { return {}; }
+}
+function saveState(patch) {
+  try {
+    var s = loadState();
+    for (var k in patch) { if (patch.hasOwnProperty(k)) s[k] = patch[k]; }
+    localStorage.setItem(STORE_KEY, JSON.stringify(s));
+  } catch (e) { /* stockage indisponible : on ignore */ }
+}
+
+/* ═══════════════ COMPOSANTS UI ═══════════════ */
+function cubeBtn(label, color, active, onClick, extra) {
+  var b = el("button", {
+    background: active ? color : "#fff",
+    color: active ? onColor(color) : C.ink,
+    border: "2px solid " + color,
+    borderRadius: "15px",
+    padding: "9px 15px",
+    fontWeight: "600",
+    fontSize: "14px",
+    cursor: "pointer",
+    boxShadow: active ? "0 4px 0 " + shade(color) : "0 3px 0 rgba(0,0,0,0.08)",
+    transition: "transform .05s",
+    whiteSpace: "nowrap"
+  }, label);
+  if (extra) { for (var k in extra) { if (extra.hasOwnProperty(k)) b.style[k] = extra[k]; } }
+  b.addEventListener("click", onClick);
+  b.addEventListener("touchstart", function () { b.style.transform = "translateY(2px)"; }, { passive: true });
+  b.addEventListener("touchend", function () { b.style.transform = "translateY(0)"; });
+  b.addEventListener("mousedown", function () { b.style.transform = "translateY(2px)"; });
+  b.addEventListener("mouseup", function () { b.style.transform = "translateY(0)"; });
+  b.addEventListener("mouseleave", function () { b.style.transform = "translateY(0)"; });
+  return b;
+}
+
+function block(b, color) {
+  if (b.cite) {
+    var box = el("div", { borderLeft: "4px solid " + color, background: tint(color, "12"), borderRadius: "12px", padding: "12px 15px", margin: "11px 0" });
+    box.appendChild(el("div", { fontStyle: "italic", fontWeight: "600", fontSize: "15.5px", color: C.ink }, "« " + b.cite + " »"));
+    if (b.ref) box.appendChild(el("div", { fontSize: "12.5px", opacity: "0.7", marginTop: "4px", fontWeight: "600" }, b.ref));
+    if (b.exp) box.appendChild(el("div", { fontSize: "13.8px", lineHeight: "1.5", marginTop: "7px", color: "#3a3f4f" }, b.exp));
+    return box;
+  }
+  if (b.passage) {
+    var p = el("div", { background: tint(color, "10"), borderRadius: "14px", padding: "13px 16px", margin: "11px 0" });
+    p.appendChild(el("div", { fontWeight: "700", color: color, fontSize: "14.5px", marginBottom: "5px" }, b.passage));
+    p.appendChild(el("p", { margin: "0", fontSize: "14.5px", lineHeight: "1.6", color: "#2A2E3D" }, b.text));
+    return p;
+  }
+  if (b.callout) {
+    return el("div", { background: "#FFF1F4", border: "1.5px solid #F7C6D2", borderRadius: "14px", padding: "13px 16px", margin: "12px 0", fontSize: "14.5px", lineHeight: "1.55" }, b.text);
+  }
+  if (b.note) {
+    return el("div", { background: tint(C.jaune, "22"), borderRadius: "14px", padding: "12px 16px", margin: "12px 0", fontSize: "14px", lineHeight: "1.55" }, "💡 " + b.note);
+  }
+  var wrap = el("div", { margin: "11px 0" });
+  if (b.sub) wrap.appendChild(el("div", { fontWeight: "700", fontSize: "15px", color: color, marginBottom: "6px" }, b.sub));
+  if (b.text) wrap.appendChild(el("p", { margin: "0", fontSize: "14.7px", lineHeight: "1.62", color: "#2A2E3D" }, b.text));
+  if (b.items) {
+    var ul = el("ul", { margin: "6px 0 0", paddingLeft: "0", listStyle: "none" });
+    b.items.forEach(function (it) {
+      var li = el("li", { position: "relative", paddingLeft: "20px", margin: "7px 0", fontSize: "14.5px", lineHeight: "1.55", color: "#2A2E3D" }, it);
+      li.appendChild(el("span", { position: "absolute", left: "0", top: "8px", width: "8px", height: "8px", borderRadius: "3px", background: color }));
+      ul.appendChild(li);
+    });
+    wrap.appendChild(ul);
+  }
+  return wrap;
+}
+
+function card(color, extra) {
+  var c = el("div", {
+    background: "#fff", borderRadius: "18px", border: "2px solid " + color,
+    boxShadow: "0 5px 0 " + tint(color, "33"), padding: "16px 18px"
+  });
+  if (extra) { for (var k in extra) { if (extra.hasOwnProperty(k)) c.style[k] = extra[k]; } }
+  return c;
+}
+
+function chip(text, color) {
+  return el("span", { fontSize: "12.5px", background: tint(color, "16"), color: shade(color), borderRadius: "8px", padding: "5px 10px", fontWeight: "600", display: "inline-block" }, text);
+}
+function chipRow(arr, color) {
+  var d = el("div", { display: "flex", flexWrap: "wrap", gap: "7px" });
+  arr.forEach(function (t) { d.appendChild(chip(t, color)); });
+  return d;
+}
+
+/* ═══════════════ ÉCRANS ═══════════════ */
+var root = document.getElementById("app");
+
+function go(screen) {
+  saveState({ screen: screen });
+  window.scrollTo(0, 0);
+  render(screen);
+}
+
+function render(screen) {
+  clear(root);
+  if (!screen || screen.type === "home") root.appendChild(Home());
+  else if (screen.type === "oeuvre") root.appendChild(OeuvreView(findO(screen.id), screen.tab));
+  else if (screen.type === "methode") root.appendChild(MethodeView());
+  else if (screen.type === "fiches") root.appendChild(FicheView(screen.id));
+  else root.appendChild(Home());
+}
+function findO(id) { for (var i = 0; i < OEUVRES.length; i++) if (OEUVRES[i].id === id) return OEUVRES[i]; return OEUVRES[0]; }
+
+/* ── Accueil ── */
+function Home() {
+  var wrap = el("div");
+  var head = el("div", { textAlign: "center", padding: "6px 0 18px" });
+  head.appendChild(el("div", { display: "inline-block", background: C.ink, color: "#fff", borderRadius: "12px", padding: "5px 14px", fontSize: "12.5px", fontWeight: "700", letterSpacing: "1px", marginBottom: "12px" }, "BAC DE FRANÇAIS · ŒUVRES"));
+  head.appendChild(el("h1", { margin: "0 0 6px", fontSize: "27px", color: C.ink }, "Mes 4 œuvres"));
+  head.appendChild(el("p", { margin: "0", fontSize: "14.5px", opacity: "0.7" }, "Tape sur une œuvre pour réviser."));
+  wrap.appendChild(head);
+
+  var list = el("div", { display: "flex", flexDirection: "column", gap: "14px" });
+  OEUVRES.forEach(function (o) {
+    var b = el("button", {
+      textAlign: "left", cursor: "pointer", border: "none", background: "#fff",
+      borderRadius: "20px", padding: "0", overflow: "hidden",
+      boxShadow: "0 5px 0 " + tint(o.couleur, "40"), borderLeft: "8px solid " + o.couleur
+    });
+    var pad = el("div", { padding: "16px 18px" });
+    var top = el("div", { display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" });
+    var tl = el("div");
+    tl.appendChild(el("h2", { margin: "0", fontSize: "18.5px", color: C.ink, lineHeight: "1.2" }, o.titre));
+    tl.appendChild(el("div", { fontSize: "14px", fontWeight: "600", color: o.couleur, marginTop: "3px" }, o.auteur));
+    top.appendChild(tl);
+    top.appendChild(el("span", { flex: "0 0 auto", background: tint(o.couleur, "1F"), color: shade(o.couleur), borderRadius: "20px", width: "34px", height: "34px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", fontWeight: "700" }, "›"));
+    pad.appendChild(top);
+    var badges = el("div", { marginTop: "11px", display: "flex", flexWrap: "wrap", gap: "6px" });
+    badges.appendChild(el("span", { fontSize: "12px", background: "#F4F2EC", borderRadius: "8px", padding: "4px 9px", color: "#555" }, o.petit));
+    badges.appendChild(el("span", { fontSize: "12px", background: tint(o.couleur, "1A"), borderRadius: "8px", padding: "4px 9px", color: shade(o.couleur), fontWeight: "600" }, "🎯 " + o.parcours));
+    pad.appendChild(badges);
+    b.appendChild(pad);
+    b.addEventListener("click", function () { go({ type: "oeuvre", id: o.id, tab: "identite" }); });
+    list.appendChild(b);
+  });
+  wrap.appendChild(list);
+
+  var btnRow = el("div", { display: "flex", gap: "12px", marginTop: "16px" });
+  var fBtn = el("button", { flex: "1", cursor: "pointer", border: "none", background: C.ink, color: "#fff", borderRadius: "16px", padding: "15px 12px", fontSize: "15px", fontWeight: "700", boxShadow: "0 4px 0 #0c0e16" }, "🗂️ Fiches");
+  fBtn.addEventListener("click", function () { go({ type: "fiches", id: OEUVRES[0].id }); });
+  var mBtn = el("button", { flex: "1", cursor: "pointer", background: "#fff", color: C.ink, borderRadius: "16px", padding: "15px 12px", fontSize: "15px", fontWeight: "700", border: "2px solid " + C.ink, boxShadow: "0 4px 0 rgba(0,0,0,0.12)" }, "📝 Méthode");
+  mBtn.addEventListener("click", function () { go({ type: "methode" }); });
+  btnRow.appendChild(fBtn); btnRow.appendChild(mBtn);
+  wrap.appendChild(btnRow);
+  return wrap;
+}
+
+/* ── Vue œuvre ── */
+function OeuvreView(o, activeTab) {
+  var wrap = el("div");
+  var tabs = [{ id: "identite", label: "Fiche" }];
+  o.sections.forEach(function (s) { tabs.push({ id: s.id, label: s.label }); });
+  if (o.poemes) tabs.push({ id: "poemes", label: "Les 22 poèmes" });
+  tabs.push({ id: "aubac", label: "Au bac" });
+  var tab = activeTab || "identite";
+
+  var header = el("div", { background: o.couleur, borderRadius: "20px", padding: "18px 18px 20px", color: onColor(o.couleur), boxShadow: "0 6px 0 " + shade(o.couleur) });
+  var back = el("button", { background: "rgba(255,255,255,0.25)", border: "none", color: "inherit", borderRadius: "10px", padding: "6px 12px", fontWeight: "600", fontSize: "13.5px", cursor: "pointer", marginBottom: "12px" }, "← Accueil");
+  back.addEventListener("click", function () { go({ type: "home" }); });
+  header.appendChild(back);
+  header.appendChild(el("h1", { margin: "0", fontSize: "23px", lineHeight: "1.15" }, o.titre));
+  header.appendChild(el("div", { fontSize: "15px", fontWeight: "600", marginTop: "4px", opacity: "0.95" }, o.auteur + " · " + o.petit));
+  var hb = el("div", { display: "flex", flexWrap: "wrap", gap: "7px", marginTop: "12px" });
+  hb.appendChild(el("span", { background: "rgba(255,255,255,0.22)", borderRadius: "9px", padding: "5px 10px", fontSize: "12.3px", fontWeight: "600" }, "📚 " + o.objet));
+  hb.appendChild(el("span", { background: "rgba(255,255,255,0.22)", borderRadius: "9px", padding: "5px 10px", fontSize: "12.3px", fontWeight: "600" }, "🎯 " + o.parcours));
+  header.appendChild(hb);
+  wrap.appendChild(header);
+
+  var tabRow = el("div", { display: "flex", gap: "8px", overflowX: "auto", padding: "16px 2px" });
+  tabRow.className = "row-scroll";
+  tabs.forEach(function (t) {
+    var holder = el("div", { flex: "0 0 auto" });
+    holder.appendChild(cubeBtn(t.label, o.couleur, tab === t.id, function () { go({ type: "oeuvre", id: o.id, tab: t.id }); }));
+    tabRow.appendChild(holder);
+  });
+  wrap.appendChild(tabRow);
+
+  var body = el("div", { paddingBottom: "40px" });
+  if (tab === "identite") body.appendChild(identiteCard(o));
+  else if (tab === "poemes" && o.poemes) body.appendChild(Poemes(o));
+  else if (tab === "aubac") body.appendChild(AuBac(o.aubac, o.couleur));
+  else {
+    var sec = null;
+    o.sections.forEach(function (s) { if (s.id === tab) sec = s; });
+    if (sec) {
+      var c = card(sec.couleur);
+      sec.blocks.forEach(function (b) { c.appendChild(block(b, sec.couleur)); });
+      body.appendChild(c);
+    }
+  }
+  wrap.appendChild(body);
+  return wrap;
+}
+
+function identiteCard(o) {
+  var c = card(o.couleur, { padding: "0", overflow: "hidden" });
+  o.identite.forEach(function (row, i) {
+    var line = el("div", { display: "flex", gap: "12px", padding: "13px 16px" });
+    if (i) line.style.borderTop = "1px solid #F0EEE8";
+    line.appendChild(el("div", { flex: "0 0 78px", fontWeight: "700", color: o.couleur, fontSize: "13.5px" }, row[0]));
+    line.appendChild(el("div", { fontSize: "14.3px", lineHeight: "1.5", color: "#2A2E3D" }, row[1]));
+    c.appendChild(line);
+  });
+  return c;
+}
+
+/* ── Les 22 poèmes ── */
+function Poemes(o) {
+  var color = o.couleur;
+  var container = el("div");
+  var st = loadState();
+  var openN = (st.poeme && st.poemeOeuvre === o.id) ? st.poeme : null;
+
+  function showList() {
+    saveState({ poeme: null, poemeOeuvre: o.id });
+    clear(container);
+    container.appendChild(el("p", { fontSize: "14px", opacity: "0.75", marginTop: "0" }, "Les 22 poèmes dans l'ordre. Les ⭐ sont les plus importants pour le bac (analyse approfondie à l'intérieur)."));
+    var grid = el("div", { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" });
+    o.poemes.forEach(function (p) {
+      var b = el("button", {
+        textAlign: "left", background: "#fff", border: "2px solid " + (p.imp ? color : "#E7E4DC"),
+        borderRadius: "14px", padding: "11px 12px", cursor: "pointer",
+        boxShadow: p.imp ? "0 3px 0 " + tint(color, "33") : "0 2px 0 rgba(0,0,0,0.05)"
+      });
+      var topline = el("div", { display: "flex", justifyContent: "space-between", alignItems: "center" });
+      topline.appendChild(el("span", { fontSize: "12px", fontWeight: "700", color: color }, String(p.n)));
+      topline.appendChild(el("span", { fontSize: "12px" }, p.imp ? "⭐" : ""));
+      b.appendChild(topline);
+      b.appendChild(el("div", { fontWeight: "600", fontSize: "14px", color: C.ink, marginTop: "3px", lineHeight: "1.25" }, p.t));
+      b.addEventListener("click", function () { showDetail(p.n); });
+      grid.appendChild(b);
+    });
+    container.appendChild(grid);
+  }
+
+  function showDetail(n) {
+    saveState({ poeme: n, poemeOeuvre: o.id });
+    window.scrollTo(0, 0);
+    var p = null;
+    o.poemes.forEach(function (x) { if (x.n === n) p = x; });
+    clear(container);
+    var backBtn = cubeBtn("← Tous les poèmes", color, false, showList, { marginBottom: "14px" });
+    container.appendChild(backBtn);
+    var c = card(color);
+    var tagRow = el("div", { display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px", flexWrap: "wrap" });
+    tagRow.appendChild(el("span", { background: color, color: onColor(color), borderRadius: "10px", padding: "3px 10px", fontWeight: "700", fontSize: "13px" }, "Poème " + p.n));
+    if (p.imp) tagRow.appendChild(el("span", { background: tint(C.jaune, "33"), borderRadius: "10px", padding: "3px 10px", fontWeight: "700", fontSize: "12.5px", color: "#8a6d00" }, "⭐ Important"));
+    c.appendChild(tagRow);
+    c.appendChild(el("h3", { margin: "6px 0 2px", fontSize: "21px", color: C.ink }, p.t));
+    c.appendChild(el("div", { fontSize: "12.5px", opacity: "0.65", marginBottom: "10px" }, p.f));
+    c.appendChild(block({ sub: "Résumé", text: p.r }, color));
+    c.appendChild(block({ sub: "Analyse", text: p.a }, color));
+    if (p.plus) c.appendChild(block({ passage: "À retenir", text: p.plus }, color));
+    if (p.cite) c.appendChild(block({ cite: p.cite, ref: p.t }, color));
+    container.appendChild(c);
+  }
+
+  if (openN != null) showDetail(openN); else showList();
+  return container;
+}
+
+/* ── Au bac ── */
+function AuBac(a, color) {
+  var wrap = el("div", { display: "flex", flexDirection: "column", gap: "14px" });
+
+  var c1 = card(C.rouge);
+  c1.appendChild(el("div", { fontWeight: "700", color: C.rouge, fontSize: "15px", marginBottom: "8px" }, "Sujets de dissertation probables"));
+  a.sujets.forEach(function (s, i) {
+    var row = el("div", { display: "flex", gap: "9px", margin: "8px 0", fontSize: "14.3px", lineHeight: "1.5" });
+    row.appendChild(el("span", { flex: "0 0 22px", height: "22px", borderRadius: "7px", background: tint(C.rouge, "1F"), color: shade(C.rouge), fontWeight: "700", fontSize: "12.5px", display: "flex", alignItems: "center", justifyContent: "center" }, String(i + 1)));
+    row.appendChild(el("span", { color: "#2A2E3D" }, s));
+    c1.appendChild(row);
+  });
+  wrap.appendChild(c1);
+
+  var c2 = card(color);
+  c2.appendChild(el("div", { fontWeight: "700", color: color, fontSize: "15px", marginBottom: "8px" }, a.plan.titre));
+  a.plan.parties.forEach(function (pp) {
+    var d = el("div", { margin: "9px 0" });
+    d.appendChild(el("div", { fontWeight: "700", fontSize: "14.3px", color: C.ink }, pp[0]));
+    d.appendChild(el("div", { fontSize: "14px", lineHeight: "1.5", color: "#3a3f4f", marginTop: "2px" }, pp[1]));
+    c2.appendChild(d);
+  });
+  wrap.appendChild(c2);
+
+  var c3 = card(C.violet);
+  c3.appendChild(el("div", { fontWeight: "700", color: C.violet, fontSize: "15px", marginBottom: "4px" }, "Questions d'oral (entretien)"));
+  c3.appendChild(block({ items: a.oral }, C.violet));
+  wrap.appendChild(c3);
+
+  var c4 = card(C.turquoise);
+  c4.appendChild(el("div", { fontWeight: "700", color: C.turquoise, fontSize: "15px", marginBottom: "4px" }, "Ouvertures & liens"));
+  c4.appendChild(block({ items: a.ouvertures }, C.turquoise));
+  wrap.appendChild(c4);
+
+  var pg = el("div", { background: "#FFF1F4", border: "1.5px solid #F7C6D2", borderRadius: "14px", padding: "13px 16px", fontSize: "14.3px", lineHeight: "1.55" });
+  pg.appendChild(el("span", { fontWeight: "700" }, "⚠️ Piège à éviter — "));
+  pg.appendChild(document.createTextNode(a.piege));
+  wrap.appendChild(pg);
+  return wrap;
+}
+
+/* ── Méthode ── */
+function MethodeView() {
+  var wrap = el("div");
+  var st = loadState();
+  var idx = typeof st.methode === "number" ? st.methode : 0;
+  wrap.appendChild(cubeBtn("← Accueil", C.ink, false, function () { go({ type: "home" }); }, { marginBottom: "16px" }));
+  wrap.appendChild(el("h2", { fontSize: "22px", color: C.ink, margin: "0 0 12px" }, "📝 Méthode bac"));
+  var tabRow = el("div", { display: "flex", gap: "8px", overflowX: "auto", paddingBottom: "14px" });
+  tabRow.className = "row-scroll";
+  var body = el("div");
+  function draw() {
+    clear(tabRow);
+    METHODE.forEach(function (m, k) {
+      var holder = el("div", { flex: "0 0 auto" });
+      holder.appendChild(cubeBtn(m.label, m.couleur, idx === k, function () { idx = k; saveState({ methode: k }); draw(); }));
+      tabRow.appendChild(holder);
+    });
+    clear(body);
+    var m = METHODE[idx];
+    var c = card(m.couleur);
+    m.blocks.forEach(function (b) { c.appendChild(block(b, m.couleur)); });
+    body.appendChild(c);
+  }
+  wrap.appendChild(tabRow);
+  wrap.appendChild(body);
+  draw();
+  return wrap;
+}
+
+/* ── Fiches ── */
+function fsection(title, color, contentNode) {
+  var s = el("div", { marginTop: "14px", paddingTop: "12px", borderTop: "1px solid #F0EEE8" });
+  s.appendChild(el("div", { fontSize: "11.5px", fontWeight: "800", letterSpacing: "0.5px", color: color, textTransform: "uppercase", marginBottom: "8px" }, title));
+  s.appendChild(contentNode);
+  return s;
+}
+function FicheView(startId) {
+  var wrap = el("div");
+  var st = loadState();
+  var id = startId || st.fiche || OEUVRES[0].id;
+  wrap.appendChild(cubeBtn("← Accueil", C.ink, false, function () { go({ type: "home" }); }, { marginBottom: "14px" }));
+  wrap.appendChild(el("h2", { fontSize: "22px", color: C.ink, margin: "0 0 4px" }, "🗂️ Fiches essentielles"));
+  wrap.appendChild(el("p", { fontSize: "13.5px", opacity: "0.7", marginTop: "0" }, "Tout l'essentiel d'une œuvre sur une seule fiche."));
+  var tabRow = el("div", { display: "flex", gap: "8px", overflowX: "auto", paddingBottom: "14px" });
+  tabRow.className = "row-scroll";
+  var body = el("div");
+
+  function lastName(auteur) { var parts = auteur.split(" "); return parts[parts.length - 1]; }
+
+  function draw() {
+    saveState({ fiche: id });
+    clear(tabRow);
+    OEUVRES.forEach(function (x) {
+      var holder = el("div", { flex: "0 0 auto" });
+      holder.appendChild(cubeBtn(lastName(x.auteur), x.couleur, id === x.id, function () { id = x.id; window.scrollTo(0, 0); draw(); }));
+      tabRow.appendChild(holder);
+    });
+    clear(body);
+    var o = findO(id);
+    var f = o.fiche;
+    var col = o.couleur;
+    var c = card(col, { borderTop: "8px solid " + col });
+    c.appendChild(el("h3", { margin: "0", fontSize: "20px", color: C.ink, lineHeight: "1.2" }, o.titre));
+    c.appendChild(el("div", { fontSize: "14px", fontWeight: "600", color: col, marginTop: "3px" }, o.auteur + " · " + o.petit));
+    c.appendChild(el("div", { marginTop: "8px", display: "inline-block", background: tint(col, "1A"), color: shade(col), borderRadius: "8px", padding: "4px 10px", fontSize: "12.5px", fontWeight: "700" }, "🎯 " + o.parcours));
+
+    c.appendChild(fsection("En bref", col, el("p", { margin: "0", fontSize: "14.3px", lineHeight: "1.55", color: "#2A2E3D" }, f.express)));
+    c.appendChild(fsection("À retenir", col, el("div", { background: tint(col, "12"), borderRadius: "12px", padding: "11px 14px", fontSize: "14.3px", lineHeight: "1.55", color: "#2A2E3D" }, f.retenir)));
+    c.appendChild(fsection("Repères", col, chipRow(f.reperes, col)));
+    c.appendChild(fsection("Thèmes clés", col, chipRow(f.themes, col)));
+
+    if (f.perso) {
+      var ul = el("ul", { margin: "0", paddingLeft: "0", listStyle: "none" });
+      f.perso.forEach(function (r) {
+        var li = el("li", { position: "relative", paddingLeft: "18px", margin: "5px 0", fontSize: "13.8px", lineHeight: "1.45", color: "#2A2E3D" }, r);
+        li.appendChild(el("span", { position: "absolute", left: "0", top: "7px", width: "7px", height: "7px", borderRadius: "2px", background: col }));
+        ul.appendChild(li);
+      });
+      c.appendChild(fsection("Personnages & notions", col, ul));
+    }
+    if (f.poemes) c.appendChild(fsection("Poèmes incontournables", col, chipRow(f.poemes, col)));
+
+    var citWrap = el("div");
+    f.citations.forEach(function (ci) {
+      var d = el("div", { margin: "6px 0", paddingLeft: "10px", borderLeft: "3px solid " + tint(col, "55") });
+      d.appendChild(el("span", { fontStyle: "italic", fontSize: "13.8px", color: C.ink }, "« " + ci.q + " »"));
+      d.appendChild(el("span", { fontSize: "11.5px", opacity: "0.6", marginLeft: "6px" }, ci.r));
+      citWrap.appendChild(d);
+    });
+    c.appendChild(fsection("Citations", col, citWrap));
+
+    if (f.piege) c.appendChild(fsection("Piège à éviter", col, el("div", { background: "#FFF1F4", border: "1.5px solid #F7C6D2", borderRadius: "12px", padding: "10px 13px", fontSize: "13.8px", lineHeight: "1.5" }, "⚠️ " + f.piege)));
+    c.appendChild(fsection("Ouverture", col, chipRow(f.ouverture, col)));
+    body.appendChild(c);
+  }
+
+  wrap.appendChild(tabRow);
+  wrap.appendChild(body);
+  draw();
+  return wrap;
+}
+
+/* ═══════════════ DÉMARRAGE ═══════════════ */
+(function start() {
+  var st = loadState();
+  var screen = st.screen && st.screen.type ? st.screen : { type: "home" };
+  render(screen);
+})();
+</script>
+</body>
+</html>
